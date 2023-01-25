@@ -15,6 +15,7 @@ import java.util.Optional;
 public class AppUserController {
     private final AppUserService appUserService;
 
+    // create = signup
     @PostMapping
     public AppUser create (@RequestBody AppUser appUser) {
         return appUserService.create(appUser);
@@ -22,7 +23,7 @@ public class AppUserController {
 
     @PostMapping("/login")
     public Optional<AppUser> login() {
-        return appUserService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        return me();
     }
 
     @GetMapping("/me")

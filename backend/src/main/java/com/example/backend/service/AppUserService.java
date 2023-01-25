@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+
 import java.util.Optional;
 
 @Service
@@ -18,6 +19,7 @@ public class AppUserService {
     private final PasswordEncoder passwordEncoder;
 
     public AppUser create (AppUser appUser) {
+
         Optional<AppUser> existingAppUser = findByUsername(
                 appUser.getUsername()
         );
@@ -33,7 +35,8 @@ public class AppUserService {
                         !SecurityContextHolder
                                 .getContext()
                                 .getAuthentication()
-                                .isAuthenticated() ||
+                                .isAuthenticated()
+                        ||
                         SecurityContextHolder
                                 .getContext()
                                 .getAuthentication()
