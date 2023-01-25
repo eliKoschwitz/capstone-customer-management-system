@@ -61,12 +61,11 @@ public class AppUserService {
         return appUser;
     }
 
+    // wird verwendet im CustomerService und OrderService
     public AppUser getAuthenticatedUser () {
         return findByUsernameWithoutPassword(
                 SecurityContextHolder.getContext().getAuthentication().getName()
-        ).orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.FORBIDDEN)
-        );
+        ).orElseThrow(() -> new ResponseStatusException(HttpStatus.FORBIDDEN));
     }
 }
 

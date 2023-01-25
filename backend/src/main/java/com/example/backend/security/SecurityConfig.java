@@ -31,8 +31,12 @@ public class SecurityConfig {
                 ).permitAll()
                 .antMatchers(
                         HttpMethod.POST,
-                        "/api/"
-                ).hasRole("ADMIN")
+                        "/api/customer"
+                ).hasRole("BASIC")
+                .antMatchers(
+                        HttpMethod.POST,
+                        "/api/order"
+                ).hasRole("BASIC")
                 .anyRequest()
                 .authenticated()
                 .and()
