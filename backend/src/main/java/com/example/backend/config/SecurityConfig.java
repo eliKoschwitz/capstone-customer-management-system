@@ -1,4 +1,4 @@
-package com.example.backend.security;
+package com.example.backend.config;
 
 import com.example.backend.model.AppUser;
 import com.example.backend.service.AppUserService;
