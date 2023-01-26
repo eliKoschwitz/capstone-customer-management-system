@@ -28,28 +28,29 @@ class AppUserControllerTest {
     @Autowired
     private AppUserRepository appUserRepository;
 
+    // CREATE
     @Test
     void whenCreateUser_getBackSameUser() throws Exception {
         String requestBody = """
-            {
-                "id": "63d1388c30c8f00af04e009c",
-                "username":"Elias",
-                "password":"user"
-            }
-            """;
+                {
+                    "id": "63d1388c30c8f00af04e009c",
+                    "username":"Elias",
+                    "password":"user"
+                }
+                """;
 
         String expectedJSON = """
-            {
-                "id": "63d1388c30c8f00af04e009c",
-                "username": "Elias",
-                "password": "",
-                "role": "BASIC"
-            }
-            """;
+                {
+                    "id": "63d1388c30c8f00af04e009c",
+                    "username": "Elias",
+                    "password": "",
+                    "role": "BASIC"
+                }
+                """;
 
         mvc.perform(MockMvcRequestBuilders.post("/api/app-users")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(requestBody))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
                 .andExpect(status().isOk())
                 .andExpect(content().json(expectedJSON));
     }
@@ -58,75 +59,68 @@ class AppUserControllerTest {
     void whenCreateUser_andAppUserDoesExit_thenReturnConflict() throws Exception {
 
         String requestBody = """
-            {
-                "id": "63d1388c30c8f00af04e009c",
-                "username":"Elias",
-                "password":"user"
-            }
-            """;
+                {
+                    "id": "63d1388c30c8f00af04e009c",
+                    "username":"Elias",
+                    "password":"user"
+                }
+                """;
 
         String expectedJSON = """
-            {
-                "id": "63d1388c30c8f00af04e009c",
-                "username": "Elias",
-                "password": "",
-                "role": "BASIC"
-            }
-            """;
+                {
+                    "id": "63d1388c30c8f00af04e009c",
+                    "username": "Elias",
+                    "password": "",
+                    "role": "BASIC"
+                }
+                """;
 
         mvc.perform(MockMvcRequestBuilders.post("/api/app-users")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(requestBody))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
                 .andExpectAll(
-                MockMvcResultMatchers.status().isOk(),
-                MockMvcResultMatchers.content().json(expectedJSON ));
+                        MockMvcResultMatchers.status().isOk(),
+                        MockMvcResultMatchers.content().json(expectedJSON));
 
         mvc.perform(MockMvcRequestBuilders.post("/api/app-users")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(requestBody))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
                 .andExpectAll(MockMvcResultMatchers.status().isConflict());
     }
 
+    // LOGIN
     @Test
     @WithMockUser(username = "Elias", password = "user")
     void whenLogin_get200AndSameUsername() throws Exception {
         String expectedJSON = """
-            {
-                "id": "flappDoodle",
-                "username": "Elias",
-                "password": "",
-                "role": "BASIC"
-            }
-            """;
-        appUserRepository.save(new AppUser("flappDoodle","Elias","user","BASIC"));
+                {
+                    "id": "flappDoodle",
+                    "username": "Elias",
+                    "password": "",
+                    "role": "BASIC"
+                }
+                """;
+        appUserRepository.save(new AppUser("flappDoodle", "Elias", "user", "BASIC"));
 
         mvc.perform(MockMvcRequestBuilders.post("/api/app-users/login"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(expectedJSON));
     }
 
-
-    //(1)
     @Test
     void whenLogin_AppUserDoesNotExist_thenReturn401() throws Exception {
         mvc.perform(MockMvcRequestBuilders.post("/api/app-users/login"))
                 .andExpect(status().isUnauthorized());
     }
-    //(2)
-    @Test
-    void Login_whenAppUserIsNotExist_thenReturn401() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.post("/api/app-users/login")).
-                andExpectAll(MockMvcResultMatchers.status().isUnauthorized()
-                );
-    }
 
     @Test
     @WithMockUser(username = "Elias", password = "user")
     void whenLogin_AppUserExists_thenReturn200() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.post("/api/app-users/login")).
-                andExpectAll(MockMvcResultMatchers.status().isOk());
+        mvc.perform(MockMvcRequestBuilders.post("/api/app-users/login"))
+                .andExpectAll(MockMvcResultMatchers.status().isOk());
     }
 
+    // ME ENDPUNKT
     @Test
     void me_whenAppUserNotLoggedIn_thenReturn401() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/api/app-users/me")).
@@ -142,19 +136,19 @@ class AppUserControllerTest {
                 );
     }
 
+    // LOGOUT
     @Test
-    @WithMockUser(username = "Elias",roles = "BASIC")
-    void logout_whenLoggedAppUserWillLogout_shouldReturnIsOK() throws Exception {
+    @WithMockUser(username = "Elias", roles = "BASIC")
+    void whenLogout_appUser_return200() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/api/app-users/logout"))
                 .andExpectAll(MockMvcResultMatchers.status().isOk()
                 );
     }
 
     @Test
-    void logout_whenNotLoggedAppUserWillLogout_shouldReturn401() throws Exception {
+    void whenLogout_withNoAppUser_return401() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/api/app-users/logout"))
                 .andExpectAll(MockMvcResultMatchers.status().isUnauthorized()
                 );
-
     }
 }

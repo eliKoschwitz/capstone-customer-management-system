@@ -29,14 +29,6 @@ public class SecurityConfig {
                         HttpMethod.POST,
                         "/api/app-users"
                 ).permitAll()
-                .antMatchers(
-                        HttpMethod.POST,
-                        "/api/customer"
-                ).hasRole("BASIC")
-                .antMatchers(
-                        HttpMethod.POST,
-                        "/api/order"
-                ).hasRole("BASIC")
                 .anyRequest()
                 .authenticated()
                 .and()
