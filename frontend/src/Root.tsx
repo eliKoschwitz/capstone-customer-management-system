@@ -3,7 +3,8 @@ import NoAuth from "./components/NoAuth";
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import Auth from "./components/Auth";
-import HomePage from "./pages/HomePage";
+import CustomersPage from "./pages/CustomersPage";
+import AddCustomersPage from "./pages/AddCustomersPage";
 import React, {useMemo} from "react";
 
 export default function Root () {
@@ -28,7 +29,17 @@ export default function Root () {
                 }/>
                 <Route path="/" element={
                     <Auth>
-                        <HomePage/>
+                        <CustomersPage/>
+                    </Auth>
+                }/>
+                <Route path="/customer" element={
+                    <Auth>
+                        <CustomersPage/>
+                    </Auth>
+                }/>
+                <Route path="/add-customer" element={
+                    <Auth>
+                        <AddCustomersPage/>
                     </Auth>
                 }/>
             </Routes>
