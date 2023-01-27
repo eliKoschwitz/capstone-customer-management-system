@@ -22,8 +22,16 @@ export default function Auth (
                 : "/"}
         />
     );
+    if (!axiosWasPerformed) {
+        return null
+    }
+    if (user){
+        return <> {children} </>
+    }
 
-    return !axiosWasPerformed
-        ? null
-        : (user ? {children} : (shouldRedirect ? navigate : null));
+    return (
+        <>
+            {shouldRedirect ? navigate : null}
+        </>
+    )
 }
