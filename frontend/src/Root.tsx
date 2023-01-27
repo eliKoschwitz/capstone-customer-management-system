@@ -5,6 +5,7 @@ import LoginPage from "./pages/LoginPage";
 import Auth from "./components/Auth";
 import HomePage from "./pages/HomePage";
 import React, {useMemo} from "react";
+import CustomerPage from "./pages/CustomerPage";
 
 export default function Root () {
     const [searchParams] = useSearchParams();
@@ -29,6 +30,11 @@ export default function Root () {
                 <Route path="/" element={
                     <Auth>
                         <HomePage/>
+                    </Auth>
+                }/>
+                <Route path="/customer" element={
+                    <Auth>
+                        <CustomerPage/>
                     </Auth>
                 }/>
             </Routes>

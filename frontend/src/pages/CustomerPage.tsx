@@ -2,7 +2,7 @@ import Logout from "../components/Logout";
 import {useEffect } from "react";
 import getMe from "../hooks/getMe";
 
-export default function HomePage () {
+export default function CustomerPage () {
 
     useEffect(() => {
         (async () => {
@@ -15,10 +15,11 @@ export default function HomePage () {
 
 
 
+
     return (
         <div className="HomePage">
-            <h1>Home</h1>
-            <p>This is the home page.</p>
+            <h1>Customer</h1>
+
             <Logout/>
         </div>
     );
