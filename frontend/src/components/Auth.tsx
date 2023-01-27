@@ -25,7 +25,5 @@ export default function Auth (
 
     return !axiosWasPerformed
         ? null
-        : (user
-            ? <>{children}</>
-            : (shouldRedirect ? navigate : null));
+        : (user ? {children} : (shouldRedirect ? navigate : null));
 }
