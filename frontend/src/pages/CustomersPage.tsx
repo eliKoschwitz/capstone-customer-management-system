@@ -4,8 +4,12 @@ import {Link} from "react-router-dom";
 import axios from "axios";
 import Customer from "../types/customer";
 import CustomerCard from "./CustomerCard";
+import {AppBar, Toolbar, Typography} from "@mui/material";
+import CallIcon from "@mui/icons-material/Call";
+import Button from "@mui/material/Button";
+import "../styles/customer-page.css"
 
-export default function CustomersPage () {
+export default function CustomersPage() {
 
     const [customerList, setCustomerList] = useState<Customer[]>([]);
 
@@ -23,11 +27,30 @@ export default function CustomersPage () {
     }, []);
 
     return (
-        <div className="customers">
-            <h1>Customers</h1>
-                {customerList.map(customer => <CustomerCard customer={customer}/>) }
-                <Link to={"/add-customer"}> Add Customer </Link>
-            <Logout/>
+        <div>
+            <div>
+                <AppBar position="relative">
+                    <Toolbar >
+                        <Typography variant={"h6"}>
+                            <CallIcon/>
+                            <Link to={"/add-customer"} style={{textDecoration:'none'}} className="link">
+                                Customer
+                            </Link>
+                        </Typography>
+                    </Toolbar>
+                </AppBar>
+            </div>
+            <div className="customers">
+                <Typography variant={"h4"}>
+                    Customer
+                </Typography>
+                {customerList.map(customer => <CustomerCard customer={customer}/>)}
+
+                <Link to={"/add-customer"} style={{textDecoration: 'none'}}>
+                    <Button variant="contained" disableElevation>Add Customer</Button>
+                </Link>
+                <Logout/>
+            </div>
         </div>
     );
 }
