@@ -5,18 +5,18 @@ import {Link} from "react-router-dom";
 import Order from "../types/order";
 
 export default function OrderCard ({order}:{order:Order}) {
-    console.log("OrderCard - Order ID",order.orderId);
+    console.log("OrderCard - Here DB-ID ",order.id);
 
     return (
         <div className="customer-card">
             <Container maxWidth={"md"}>
-                <Link to={"/detailed-order/"+order.orderId} style={{ textDecoration: 'none' }}>
+                <Link to={"/detailed-order/"+order.id} style={{ textDecoration: 'none' }}>
                     <Card >
                         <CardContent >
                             <Typography gutterBottom variant={"h6"}>
                                 <div>
                                     {order.customerId}
-                                    {order.orderId}
+                                    {order.id}
                                 </div>
                                 <div>
                                     {order.website}

@@ -7,6 +7,7 @@ import {useParams} from "react-router-dom";
 export default function DetailedOrder () {
 
     const [order, setOrder] = useState<Order>({
+        id:"",
         customerId:"",
         website:"",
         startTime:"",
@@ -16,23 +17,24 @@ export default function DetailedOrder () {
     });
 
     const objId = useParams<{id : string}>();
-    console.log("DetailedOrder - Order ID",objId.id);
+    console.log("DetailedOrder - DB-ID",objId.id);
 
 
     useEffect(() => {
         (async () => {
             try {
-                const response = await axios.get("/api/order"+objId.id);
+                const response = await axios.get("/api/order/"+objId.id);
                 setOrder(response.data);
             } catch (error) {
                 console.error(error);
             }
         })();
-    }, [objId]);
+    }, [objId.id]);
 
     return (
         <div>
             {order.description}
+            {order.id}
         </div>
     );
 }
