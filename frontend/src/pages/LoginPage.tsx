@@ -6,8 +6,14 @@ import {
     useSearchParams
 } from "react-router-dom";
 import axios from "axios";
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Avatar from "@mui/material/Avatar";
+import Typography from "@mui/material/Typography";
+import LoginIcon from '@mui/icons-material/Login';
 
-export default function LoginPage () {
+export default function LoginPage() {
     const [credentials, setCredentials] = useState({
         username: "",
         password: ""
@@ -58,7 +64,6 @@ export default function LoginPage () {
 
     return (
         <div className="LoginPage">
-            <h1>Login</h1>
 
             {errors.length > 0 && (
                 <div>
@@ -66,30 +71,46 @@ export default function LoginPage () {
                 </div>
             )}
 
-            <form onSubmit={login}>
-                <div>
-                    <input
-                        placeholder={"username"}
-                        value={credentials.username}
-                        name={"username"}
-                        onChange={handleChange}
-                    />
-                </div>
+            <Box display={"flex"} flexDirection={"column"} component="form" alignItems={"center"}
+                 justifyContent={"center"} onSubmit={login} width={400} margin={"auto"} paddingTop={5}>
 
-                <div>
-                    <input
-                        placeholder={"password"}
-                        type={"password"}
-                        name={"password"}
-                        value={credentials.password}
-                        onChange={handleChange}
-                    />
-                </div>
+                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                    <LoginIcon />
+                </Avatar>
 
-                <div>
-                    <button>Login</button> or <Link to={"/signup" + location.search}>sign up here</Link>
-                </div>
-            </form>
+                <Typography component="h1" variant="h5">
+                    Login
+                </Typography>
+
+                <TextField
+                    fullWidth
+                    margin="normal"
+                    label="Username"
+                    name="username"
+                    onChange={handleChange}
+                />
+
+                <TextField
+                    fullWidth
+                    margin="normal"
+                    label="Password"
+                    name="password"
+                    type={"password"}
+                    onChange={handleChange}
+                />
+
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{mt: 3, mb: 2}}
+                >Login</Button>
+
+                <Link to={"/signup" + location.search} >Don't have an account? Sign Up</Link>
+
+            </Box>
+
+
         </div>
     );
 }
