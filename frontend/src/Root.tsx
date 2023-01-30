@@ -9,7 +9,6 @@ import React, {useMemo} from "react";
 import OrdersPage from "./pages/OrdersPage";
 import AddOrdersPage from "./pages/AddOrdersPage";
 import DetailedOrder from "./pages/DetailedOrder";
-import TestLogin from "./pages/TestLogin"
 
 export default function Root () {
     const [searchParams] = useSearchParams();
@@ -57,11 +56,6 @@ export default function Root () {
                     </Auth>
                 }/>
 
-                <Route path="/test" element={
-                    <Auth>
-                        <TestLogin/>
-                    </Auth>
-                }/>
             </Routes>
         </>
     )
