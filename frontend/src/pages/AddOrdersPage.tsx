@@ -3,14 +3,15 @@ import React, {FormEvent, useCallback, useEffect, useState} from "react";
 import getMe from "../hooks/getMe";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
-import Customer from "../types/customer";
+import Order from "../types/order";
 
-export default function AddCustomersPage () {
-    const [customer, setCustomer] = useState<Customer>({
-        firstName: "",
-        lastName: "",
-        telefonNr: "",
-        email: "",
+export default function AddOrdersPage () {
+    const [order, setOrder] = useState<Order>({
+        customerId:"",
+        website:"",
+        startTime:"",
+        endTime:"",
+        description:"",
         createdBy: ""
     });
 
@@ -30,9 +31,9 @@ export default function AddCustomersPage () {
     const handleChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
             const {name, value} = event.target;
-            setCustomer({...customer, [name]: value});
+            setOrder({...order, [name]: value});
         },
-        [customer, setCustomer]
+        [order, setOrder]
     );
 
     const saveCustomer = useCallback(
@@ -40,8 +41,8 @@ export default function AddCustomersPage () {
             e.preventDefault();
             setErrors([]);
             try {
-                await axios.post("/api/customer", customer);
-                navigate("/" );
+                await axios.post("/api/order", order);
+                navigate("/order" );
             } catch (e) {
                 setErrors((errors) => [
                     ...errors,
@@ -49,51 +50,63 @@ export default function AddCustomersPage () {
                 ]);
             }
         },
-        [customer, navigate]
+        [order, navigate]
     );
 
     return (
         <div className="add-customers">
-            <h1>Add - Customers</h1>
+            <h1>Add - Orders</h1>
+
             <form onSubmit={saveCustomer}>
                 <div>
                     <input
-                        placeholder={"FirstName"}
-                        value={customer.firstName}
-                        name={"firstName"}
+                        placeholder={"Website"}
+                        value={order.website}
+                        name={"website"}
                         onChange={handleChange}
                     />
                 </div>
 
                 <div>
                     <input
-                        placeholder={"LastName"}
-                        value={customer.lastName}
-                        name={"lastName"}
+                        placeholder={"Description"}
+                        value={order.description}
+                        name={"description"}
                         onChange={handleChange}
                     />
                 </div>
 
                 <div>
                     <input
-                        placeholder={"TelefonNr"}
-                        value={customer.telefonNr}
-                        name={"telefonNr"}
+                        placeholder={"StartTime"}
+                        value={order.startTime}
+                        name={"startTime"}
                         onChange={handleChange}
                     />
                 </div>
 
                 <div>
                     <input
-                        placeholder={"E-Mail"}
-                        value={customer.email}
-                        name={"email"}
+                        placeholder={"EndTime"}
+                        value={order.endTime}
+                        name={"endTime"}
                         onChange={handleChange}
                     />
                 </div>
-                <button>Save Customer</button>
+
+                <div>
+                    <input
+                        placeholder={"Customer"}
+                        value={order.customerId}
+                        name={"customerId"}
+                        onChange={handleChange}
+                    />
+                </div>
+                <button>Save Order</button>
             </form>
+
             <Logout/>
+
         </div>
     );
 }

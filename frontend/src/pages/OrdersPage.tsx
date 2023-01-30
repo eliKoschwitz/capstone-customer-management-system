@@ -2,22 +2,22 @@ import Logout from "../components/Logout";
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import axios from "axios";
-import Customer from "../types/customer";
-import CustomerCard from "./CustomerCard";
 import {AppBar, Toolbar, Typography} from "@mui/material";
 import CallIcon from "@mui/icons-material/Call";
 import Button from "@mui/material/Button";
 import "../styles/customer-page.css"
+import OrderCard from "./OrderCard";
+import Order from "../types/order";
 
-export default function CustomersPage() {
+export default function OrdersPage() {
 
-    const [customerList, setCustomerList] = useState<Customer[]>([]);
+    const [orderList, setOrderList] = useState<Order[]>([]);
 
     useEffect(() => {
         (async () => {
             try {
-                const response = await axios.get("/api/customer");
-                setCustomerList(response.data);
+                const response = await axios.get("/api/order");
+                setOrderList(response.data);
             } catch (error) {
                 console.error(error);
             } finally {
@@ -30,13 +30,13 @@ export default function CustomersPage() {
         <div>
             <div>
                 <AppBar position="relative">
-                    <Toolbar >
+                    <Toolbar>
                         <Typography variant={"h6"}>
                             <CallIcon/>
-                            <Link to={"/"} style={{textDecoration:'none'}} className="link">
+                            <Link to={"/"} style={{textDecoration: 'none'}} className="link">
                                 Customer
                             </Link>
-                            <Link to={"/order"} style={{textDecoration:'none'}} className="link">
+                            <Link to={"/order"} style={{textDecoration: 'none'}} className="link">
                                 Order
                             </Link>
                         </Typography>
@@ -45,12 +45,12 @@ export default function CustomersPage() {
             </div>
             <div className="customers">
                 <Typography variant={"h4"}>
-                    Customer
+                    Order
                 </Typography>
-                {customerList.map(customer => <CustomerCard customer={customer}/>)}
+                {orderList.map(order => <OrderCard order={order}/>)}
 
-                <Link to={"/add-customer"} style={{textDecoration: 'none'}}>
-                    <Button variant="contained" disableElevation>Add Customer</Button>
+                <Link to={"/add-order"} style={{textDecoration: 'none'}}>
+                    <Button variant="contained" disableElevation>Add Order</Button>
                 </Link>
                 <Logout/>
             </div>
