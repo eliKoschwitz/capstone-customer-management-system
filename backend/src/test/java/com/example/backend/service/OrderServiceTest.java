@@ -9,6 +9,7 @@ import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -102,5 +103,21 @@ class OrderServiceTest {
 
         // THEN & VERIFY
         verify(mockOrderRepository).deleteById("1");
+    }
+
+    @Test
+    void whenGetOrderById_returnTheOrderWithId(){
+        // GIVEN
+        Order expectedOrder = new Order("1234","Customer1","Website1","startTime",
+                "endTime","description","1");
+        OrderRepository mockOrderRepository = mock(OrderRepository.class);
+        AppUserService mockAppUserService = mock(AppUserService.class);
+        OrderService orderService = new OrderService(mockOrderRepository, mockAppUserService);
+
+        Mockito.when(mockOrderRepository.findById("1234")).thenReturn(Optional.of(expectedOrder));
+        // WHEN
+        Optional<Order> actual = orderService.getOrderById("1234");
+        // THEN
+        Assertions.assertEquals(Optional.of(expectedOrder),actual);
     }
 }

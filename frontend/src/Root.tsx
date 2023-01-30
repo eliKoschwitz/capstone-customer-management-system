@@ -50,7 +50,7 @@ export default function Root () {
                         <AddOrdersPage/>
                     </Auth>
                 }/>
-                <Route path="/detailed-order" element={
+                <Route path="/detailed-order/:id" element={
                     <Auth>
                         <DetailedOrder/>
                     </Auth>

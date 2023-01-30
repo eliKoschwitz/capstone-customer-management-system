@@ -33,6 +33,6 @@ public class OrderController {
 
     @GetMapping("/{id}")
     public Optional<Order> getOrderById(@PathVariable String id) {
-        return orderService.getByID(id);
+        return orderService.getOrderById(id);
     }
 }

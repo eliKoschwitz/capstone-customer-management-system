@@ -30,7 +30,8 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
-    public Optional<Order> getByID(String id) {
+    public Optional<Order> getOrderById(String id) {
         return orderRepository.findById(id);
     }
 }
+
