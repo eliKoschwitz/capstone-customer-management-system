@@ -3,8 +3,12 @@ import NoAuth from "./components/NoAuth";
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import Auth from "./components/Auth";
-import HomePage from "./pages/HomePage";
+import CustomersPage from "./pages/CustomersPage";
+import AddCustomersPage from "./pages/AddCustomersPage";
 import React, {useMemo} from "react";
+import OrdersPage from "./pages/OrdersPage";
+import AddOrdersPage from "./pages/AddOrdersPage";
+import DetailedOrder from "./pages/DetailedOrder";
 
 export default function Root () {
     const [searchParams] = useSearchParams();
@@ -28,7 +32,27 @@ export default function Root () {
                 }/>
                 <Route path="/" element={
                     <Auth>
-                        <HomePage/>
+                        <CustomersPage/>
+                    </Auth>
+                }/>
+                <Route path="/add-customer" element={
+                    <Auth>
+                        <AddCustomersPage/>
+                    </Auth>
+                }/>
+                <Route path="/order" element={
+                    <Auth>
+                        <OrdersPage/>
+                    </Auth>
+                }/>
+                <Route path="/add-order" element={
+                    <Auth>
+                        <AddOrdersPage/>
+                    </Auth>
+                }/>
+                <Route path="/detailed-order" element={
+                    <Auth>
+                        <DetailedOrder/>
                     </Auth>
                 }/>
             </Routes>

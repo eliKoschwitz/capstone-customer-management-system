@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -30,4 +31,8 @@ public class OrderController {
         orderService.deleteByID(id);
     }
 
+    @GetMapping("/{id}")
+    public Optional<Order> getOrderById(@PathVariable String id) {
+        return orderService.getByID(id);
+    }
 }

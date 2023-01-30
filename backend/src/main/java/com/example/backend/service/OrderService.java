@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,5 +28,9 @@ public class OrderService {
         String user = appUserService.getAuthenticatedUser().getId();
         order.setCreatedBy(user);
         return orderRepository.save(order);
+    }
+
+    public Optional<Order> getByID(String id) {
+        return orderRepository.findById(id);
     }
 }
