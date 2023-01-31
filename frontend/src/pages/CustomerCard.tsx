@@ -1,32 +1,39 @@
 import React from "react";
 import Customer from "../types/customer";
-import {Card, CardContent, Container, Typography} from "@mui/material";
-import "../styles/customer-card.css";
+import {Card, CardContent, Container} from "@mui/material";
+import "../styles/customer-page.css";
 import {Link} from "react-router-dom";
 
-export default function CustomerCard ({customer}:{customer:Customer}) {
+export default function CustomerCard({customer}: { customer: Customer }) {
 
 
     return (
-        <div className="customer-card">
+        <div>
             <Container maxWidth={"md"}>
-                <Link to={"/test"} style={{ textDecoration: 'none' }}>
-                <Card >
-                    <CardContent >
-                        <Typography gutterBottom variant={"h6"}>
-                            <div>
-                                {customer.firstName+" "}
-                                {customer.lastName}
+                <Link to={"/detailed-customer/"+customer.id} style={{textDecoration: 'none'}}>
+                    <Card sx={{
+                        ":hover": {
+                            boxShadow:"10px 5px 10px #ccc",
+                        },
+                        "&.MuiCard-root":{ height: 50, maxWidth:750},
+                        "&.MuiPaper-root":{ marginBottom:0.75},
+                    }}
+                    >
+                        <CardContent>
+                            <div className={"card"}>
+                                <div className={"card-first-last-name"}>
+                                    {customer.firstName + " "}
+                                    {customer.lastName}
+                                </div>
+                                <div className={"card-telefon-nr"}>
+                                    {customer.telefonNr}
+                                </div>
+                                <div className={"card-email"}>
+                                    {customer.email}
+                                </div>
                             </div>
-                            <div>
-                                {customer.telefonNr}
-                            </div>
-                            <div>
-                                {customer.email}
-                            </div>
-                        </Typography>
-                    </CardContent>
-                </Card>
+                        </CardContent>
+                    </Card>
                 </Link>
             </Container>
         </div>

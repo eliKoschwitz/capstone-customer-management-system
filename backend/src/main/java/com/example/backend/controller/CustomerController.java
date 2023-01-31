@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,4 +29,15 @@ public class CustomerController {
     public void deleteCustomerById(@PathVariable String id) {
         customerService.deleteByID(id);
     }
+
+    @GetMapping("/{id}")
+    public Optional<Customer> getCustomerById(@PathVariable String id) {
+        return customerService.getCustomerById(id);
+    }
+
+    @PutMapping("/{id}")
+    public Customer editCustomer(@PathVariable String id, @RequestBody Customer customer) {
+        return customerService.create(customer);
+    }
+
 }

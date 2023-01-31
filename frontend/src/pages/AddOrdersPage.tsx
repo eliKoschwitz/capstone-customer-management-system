@@ -1,11 +1,18 @@
-import Logout from "../components/Logout";
-import React, {FormEvent, useCallback, useEffect, useState} from "react";
-import getMe from "../hooks/getMe";
+import React, {FormEvent, useCallback, useState} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import Box from "@mui/material/Box";
+import Avatar from "@mui/material/Avatar";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import AddIcon from "@mui/icons-material/Add";
+import {AppBar, IconButton, Stack, Toolbar} from "@mui/material";
+import DomainVerificationIcon from "@mui/icons-material/DomainVerification";
 import Order from "../types/order";
 
-export default function AddOrdersPage () {
+export default function AddOrdersPage() {
+
     const [order, setOrder] = useState<Order>({
         customerId:"",
         website:"",
@@ -19,15 +26,6 @@ export default function AddOrdersPage () {
 
     const navigate = useNavigate();
 
-    useEffect(() => {
-        (async () => {
-            const user = await getMe();
-            if (user.role === "BASIC") {
-                console.log("You are logged in as a basic user!");
-            }
-        })();
-    }, []);
-
     const handleChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
             const {name, value} = event.target;
@@ -36,13 +34,13 @@ export default function AddOrdersPage () {
         [order, setOrder]
     );
 
-    const saveCustomer = useCallback(
+    const saveOrder = useCallback(
         async (e: FormEvent<HTMLFormElement>) => {
             e.preventDefault();
             setErrors([]);
             try {
                 await axios.post("/api/order", order);
-                navigate("/order" );
+                navigate("/order");
             } catch (e) {
                 setErrors((errors) => [
                     ...errors,
@@ -55,58 +53,83 @@ export default function AddOrdersPage () {
 
     return (
         <div className="add-customers">
-            <h1>Add - Orders</h1>
+            <div>
+                <AppBar position="relative">
+                    <Toolbar>
+                        <IconButton size={"large"} edge={"start"} color={"inherit"} aria-label={"logo"}>
+                            <DomainVerificationIcon/>
+                        </IconButton>
+                        <Typography variant={"h6"} sx={{flexGrow: 1}}>
+                            ORGANIZE
+                        </Typography>
+                        <Stack direction={"row"} spacing={2}>
+                            <Button color={"inherit"} onClick={() => navigate("/order")}>Back</Button>
+                        </Stack>
+                    </Toolbar>
+                </AppBar>
+            </div>
+            <div>
+                <Box display={"flex"} flexDirection={"column"} component="form" alignItems={"center"}
+                     justifyContent={"center"} onSubmit={saveOrder} width={400} margin={"auto"} paddingTop={5}>
 
-            <form onSubmit={saveCustomer}>
-                <div>
-                    <input
-                        placeholder={"Website"}
-                        value={order.website}
-                        name={"website"}
+                    <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
+                        <AddIcon/>
+                    </Avatar>
+
+                    <Typography component="h1" variant="h5">
+                        Add Order
+                    </Typography>
+
+                    <TextField
+                        fullWidth
+                        margin="normal"
+                        label="Website"
+                        name="website"
                         onChange={handleChange}
                     />
-                </div>
 
-                <div>
-                    <input
-                        placeholder={"Description"}
-                        value={order.description}
-                        name={"description"}
+                    <TextField
+                        fullWidth
+                        margin="normal"
+                        label="Start Point"
+                        name="startTime"
                         onChange={handleChange}
                     />
-                </div>
 
-                <div>
-                    <input
-                        placeholder={"StartTime"}
-                        value={order.startTime}
-                        name={"startTime"}
+                    <TextField
+                        fullWidth
+                        margin="normal"
+                        label="End Point"
+                        name="endTime"
                         onChange={handleChange}
                     />
-                </div>
 
-                <div>
-                    <input
-                        placeholder={"EndTime"}
-                        value={order.endTime}
-                        name={"endTime"}
+                    <TextField
+                        fullWidth
+                        margin="normal"
+                        label="Description"
+                        name="description"
                         onChange={handleChange}
                     />
-                </div>
 
-                <div>
-                    <input
-                        placeholder={"Customer"}
-                        value={order.customerId}
-                        name={"customerId"}
+                    <TextField
+                        fullWidth
+                        margin="normal"
+                        label="Customer"
+                        name="customerId"
                         onChange={handleChange}
                     />
-                </div>
-                <button>Save Order</button>
-            </form>
 
-            <Logout/>
 
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{mt: 3, mb: 2}}
+                    >Add Order</Button>
+                </Box>
+            </div>
         </div>
+
     );
 }

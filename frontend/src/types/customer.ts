@@ -1,4 +1,5 @@
 type Customer = {
+    id?: string;
     firstName: string;
     lastName: string;
     telefonNr: string;

@@ -1,11 +1,18 @@
-import Logout from "../components/Logout";
 import React, {FormEvent, useCallback, useEffect, useState} from "react";
 import getMe from "../hooks/getMe";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import Customer from "../types/customer";
+import Box from "@mui/material/Box";
+import Avatar from "@mui/material/Avatar";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import AddIcon from "@mui/icons-material/Add";
+import {AppBar, IconButton, Stack, Toolbar} from "@mui/material";
+import DomainVerificationIcon from "@mui/icons-material/DomainVerification";
 
-export default function AddCustomersPage () {
+export default function AddCustomersPage() {
     const [customer, setCustomer] = useState<Customer>({
         firstName: "",
         lastName: "",
@@ -41,7 +48,7 @@ export default function AddCustomersPage () {
             setErrors([]);
             try {
                 await axios.post("/api/customer", customer);
-                navigate("/" );
+                navigate("/");
             } catch (e) {
                 setErrors((errors) => [
                     ...errors,
@@ -54,46 +61,75 @@ export default function AddCustomersPage () {
 
     return (
         <div className="add-customers">
-            <h1>Add - Customers</h1>
-            <form onSubmit={saveCustomer}>
-                <div>
-                    <input
-                        placeholder={"FirstName"}
-                        value={customer.firstName}
-                        name={"firstName"}
-                        onChange={handleChange}
-                    />
-                </div>
+            <div>
+                <AppBar position="relative">
+                    <Toolbar>
+                        <IconButton size={"large"} edge={"start"} color={"inherit"} aria-label={"logo"}>
+                            <DomainVerificationIcon/>
+                        </IconButton>
+                        <Typography variant={"h6"} sx={{flexGrow: 1}}>
+                            ORGANIZE
+                        </Typography>
+                        <Stack direction={"row"} spacing={2}>
+                            <Button color={"inherit"} onClick={() => navigate("/")}>Back</Button>
+                        </Stack>
+                    </Toolbar>
+                </AppBar>
+            </div>
+            <div>
+                <Box display={"flex"} flexDirection={"column"} component="form" alignItems={"center"}
+                     justifyContent={"center"} onSubmit={saveCustomer} width={400} margin={"auto"} paddingTop={5}>
 
-                <div>
-                    <input
-                        placeholder={"LastName"}
-                        value={customer.lastName}
-                        name={"lastName"}
-                        onChange={handleChange}
-                    />
-                </div>
+                    <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
+                        <AddIcon/>
+                    </Avatar>
 
-                <div>
-                    <input
-                        placeholder={"TelefonNr"}
-                        value={customer.telefonNr}
-                        name={"telefonNr"}
-                        onChange={handleChange}
-                    />
-                </div>
+                    <Typography component="h1" variant="h5">
+                        Add Customer
+                    </Typography>
 
-                <div>
-                    <input
-                        placeholder={"E-Mail"}
-                        value={customer.email}
-                        name={"email"}
+                    <TextField
+                        fullWidth
+                        margin="normal"
+                        label="FirstName"
+                        name="firstName"
                         onChange={handleChange}
                     />
-                </div>
-                <button>Save Customer</button>
-            </form>
-            <Logout/>
+
+                    <TextField
+                        fullWidth
+                        margin="normal"
+                        label="LastName"
+                        name="lastName"
+                        onChange={handleChange}
+                    />
+
+                    <TextField
+                        fullWidth
+                        margin="normal"
+                        label="TelefonNr"
+                        name="telefonNr"
+                        onChange={handleChange}
+                    />
+
+                    <TextField
+                        fullWidth
+                        margin="normal"
+                        label="E-Mail"
+                        name="email"
+                        onChange={handleChange}
+                    />
+
+
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{mt: 3, mb: 2}}
+                    >Add Customer</Button>
+                </Box>
+            </div>
         </div>
+
     );
 }

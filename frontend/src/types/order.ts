@@ -1,4 +1,4 @@
-type order = {
+type Order = {
     id?: string;
     customerId: string;
     website:string;
@@ -8,4 +8,4 @@ type order = {
     createdBy: string;
 }
 
-export default order
+export default Order;
