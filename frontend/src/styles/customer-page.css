@@ -1,3 +1,75 @@
-.link{
-    color: white;
+.all-customer-page{
+    background-color: rgb(240,240,240);
+}
+
+.header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 0.5rem;
+    font-size: 1rem;
+    color: grey;
+}
+
+.customer-card-details{
+    margin: 0 0 0 0;
+    font-size: 0.75rem;
+}
+
+.first-last-name{
+    margin-left: 0.55rem;
+    display: flex;
+    min-width: 15rem;
+    max-width: 20px;
+
+}
+
+.telefon-nr{
+    display: flex;
+    min-width: 14.8rem;
+    max-width: 20rem;
+}
+
+.email{
+    display: flex;
+    min-width: 15rem;
+    max-width: 20rem;
+}
+
+.card{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.card-first-last-name{
+    min-width: 15rem;
+    max-width: 20px;
+}
+
+.card-telefon-nr{
+    min-width: 15rem;
+    max-width: 20px;
+}
+
+.card-email{
+    min-width: 13.5rem;
+    max-width: 15px;
+}
+
+.add-customer{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    height: 50px;
+    width: 50px;
+    background-color: #1876d2;
+    border-radius: 50%;
+    display: inline-block;
+    margin-bottom: 2rem;
+    margin-right: 2rem;
+}
+
+.customers{
+    background-color: rgb(240,240,240);
 }

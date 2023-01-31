@@ -1,6 +1,7 @@
 import React, {FormEvent, useCallback, useEffect, useState} from "react";
 import axios from "axios";
 import {useNavigate, useParams} from "react-router-dom";
+import Customer from "../types/customer";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
@@ -10,17 +11,15 @@ import {AppBar, IconButton, Stack, Toolbar} from "@mui/material";
 import DomainVerificationIcon from "@mui/icons-material/DomainVerification";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import Order from "../types/order";
 
 export default function DetailedCustomer() {
 
-    const [order, setOrder] = useState<Order>({
+    const [customer, setCustomer] = useState<Customer>({
         id:"",
-        customerId:"",
-        website:"",
-        startTime:"",
-        endTime:"",
-        description:"",
+        firstName: "",
+        lastName: "",
+        telefonNr: "",
+        email: "",
         createdBy: ""
     });
 
@@ -34,17 +33,17 @@ export default function DetailedCustomer() {
     const handleChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
             const {name, value} = event.target;
-            setOrder({...order, [name]: value});
+            setCustomer({...customer, [name]: value});
         },
-        [order, setOrder]
+        [customer, setCustomer]
     );
 
     //GET A SINGLE CUSTOMER
     useEffect(() => {
         (async () => {
             try {
-                const response = await axios.get("/api/order/" + objId.id);
-                setOrder(response.data);
+                const response = await axios.get("/api/customer/" + objId.id);
+                setCustomer(response.data);
             } catch (error) {
                 console.error(error);
             }
@@ -52,16 +51,16 @@ export default function DetailedCustomer() {
     }, [objId.id]);
 
     console.log(objId);
-    console.log(order);
+    console.log(customer);
 
     // UPDATE A SINGLE CUSTOMER
-    const editOrder = async (e:FormEvent<HTMLDivElement>) => {
+    const editCustomer = async (e:FormEvent<HTMLDivElement>) => {
         e.preventDefault();
         setErrors([]);
         try {
             //await axios.put("/api/customer/"+ customer.id, customer);
-            await axios.post("/api/order/", order);
-            navigate("/order");
+            await axios.post("/api/customer/", customer);
+            navigate("/");
         } catch (e) {
             setErrors((errors) =>
                 [...errors, "Invalid user data"]
@@ -70,11 +69,11 @@ export default function DetailedCustomer() {
     }
 
     // DELETE A CUSTOMER
-    const deleteOrder = async () => {
+    const deleteCustomer = async () => {
         setErrors([]);
         try {
-            await axios.delete("/api/order/" + objId.id);
-            navigate("/order");
+            await axios.delete("/api/customer/" + objId.id);
+            navigate("/");
         } catch (e) {
             setErrors((errors) =>
                 [...errors, "Invalid user data"]
@@ -83,7 +82,7 @@ export default function DetailedCustomer() {
     }
 
     return (
-        <div>
+        <div className="add-customers">
             <div>
                 <AppBar position="relative">
                     <Toolbar>
@@ -94,9 +93,9 @@ export default function DetailedCustomer() {
                             ORGANIZE
                         </Typography>
                         <Stack direction={"row"} spacing={2}>
-                            <Button color={"inherit"} onClick={() => navigate("/order")}>Back</Button>
+                            <Button color={"inherit"} onClick={() => navigate("/")}>Back</Button>
                             <IconButton size={"large"} edge={"start"} color={"inherit"} aria-label={"logo"}
-                                        onClick={deleteOrder}>
+                                        onClick={deleteCustomer}>
                                 <DeleteIcon/>
                             </IconButton>
                         </Stack>
@@ -105,60 +104,52 @@ export default function DetailedCustomer() {
             </div>
             <div>
                 <Box display={"flex"} flexDirection={"column"} component="form" alignItems={"center"}
-                     justifyContent={"center"} onSubmit={editOrder} width={400} margin={"auto"} paddingTop={5}>
+                     justifyContent={"center"} onSubmit={editCustomer} width={400} margin={"auto"} paddingTop={5}>
 
                     <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
                         <EditIcon/>
                     </Avatar>
 
                     <Typography component="h1" variant="h5">
-                        Edit Order
+                        Edit Customer
                     </Typography>
 
                     <TextField
                         fullWidth
                         margin="normal"
-                        label="Website"
-                        name="website"
+                        label="FirstName"
+                        name="firstName"
                         onChange={handleChange}
-                        value={order.website}
+                        value={customer.firstName}
                     />
 
                     <TextField
                         fullWidth
                         margin="normal"
-                        label="Start Point"
-                        name="startTime"
+                        label="LastName"
+                        name="lastName"
                         onChange={handleChange}
-                        value={order.startTime}
+                        value={customer.lastName}
                     />
 
                     <TextField
                         fullWidth
                         margin="normal"
-                        label="End Point"
-                        name="endTime"
+                        label="TelefonNr"
+                        name="telefonNr"
                         onChange={handleChange}
-                        value={order.endTime}
+                        value={customer.telefonNr}
                     />
 
                     <TextField
                         fullWidth
                         margin="normal"
-                        label="Description"
-                        name="description"
+                        label="E-Mail"
+                        name="email"
                         onChange={handleChange}
-                        value={order.description}
+                        value={customer.email}
                     />
 
-                    <TextField
-                        fullWidth
-                        margin="normal"
-                        label="Customer"
-                        name="customerId"
-                        onChange={handleChange}
-                        value={order.customerId}
-                    />
 
                     <Button
                         type="submit"

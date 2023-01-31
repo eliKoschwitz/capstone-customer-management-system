@@ -9,6 +9,7 @@ import React, {useMemo} from "react";
 import OrdersPage from "./pages/OrdersPage";
 import AddOrdersPage from "./pages/AddOrdersPage";
 import DetailedOrder from "./pages/DetailedOrder";
+import DetailedCustomer from "./pages/DetailedCustomer";
 
 export default function Root () {
     const [searchParams] = useSearchParams();
@@ -53,6 +54,11 @@ export default function Root () {
                 <Route path="/detailed-order/:id" element={
                     <Auth>
                         <DetailedOrder/>
+                    </Auth>
+                }/>
+                <Route path="/detailed-customer/:id" element={
+                    <Auth>
+                        <DetailedCustomer/>
                     </Auth>
                 }/>
             </Routes>
