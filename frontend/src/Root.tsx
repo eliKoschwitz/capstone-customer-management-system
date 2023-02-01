@@ -10,6 +10,7 @@ import OrdersPage from "./pages/OrdersPage";
 import AddOrdersPage from "./pages/AddOrdersPage";
 import DetailedOrder from "./pages/DetailedOrder";
 import DetailedCustomer from "./pages/DetailedCustomer";
+import ErrorPage from "./pages/ErrorPage";
 
 export default function Root () {
     const [searchParams] = useSearchParams();
@@ -60,6 +61,9 @@ export default function Root () {
                     <Auth>
                         <DetailedCustomer/>
                     </Auth>
+                }/>
+                <Route path={"*"} element={
+                    <ErrorPage/>
                 }/>
             </Routes>
         </>

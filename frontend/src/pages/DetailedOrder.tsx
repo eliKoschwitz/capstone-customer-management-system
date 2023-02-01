@@ -144,6 +144,8 @@ export default function DetailedCustomer() {
 
                     <TextField
                         fullWidth
+                        multiline={true}
+                        rows={4}
                         margin="normal"
                         label="Description"
                         name="description"
