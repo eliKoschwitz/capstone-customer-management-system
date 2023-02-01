@@ -13,10 +13,13 @@ import EmailIcon from '@mui/icons-material/Email';
 import DomainVerificationIcon from '@mui/icons-material/DomainVerification';
 import AddIcon from '@mui/icons-material/Add';
 import {ThemeConfig} from "../config/Theme";
+import SearchIcon from "@mui/icons-material/Search";
 
 export default function CustomersPage() {
 
     const [customerList, setCustomerList] = useState<Customer[]>([]);
+    const [inputForFilter, setInputForFilter] = useState<string>("");
+    let orderListFiltered: Customer[];
 
     useEffect(() => {
         (async () => {
@@ -32,6 +35,20 @@ export default function CustomersPage() {
     }, []);
 
     const navigate = useNavigate();
+
+    const getInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const value = event.target.value;
+        setInputForFilter(value);
+    }
+
+    if (inputForFilter !== "") {
+        const query = inputForFilter;
+        const re = RegExp(`.*${query.toLowerCase().split("").join(".*")}.*`);
+        orderListFiltered = customerList.filter(customer => customer.firstName.toLowerCase().match(re));
+    } else {
+        orderListFiltered = customerList.map(customer => customer);
+    }
+
 
     return (
         <div className={"all-customer-page"}>
@@ -52,8 +69,28 @@ export default function CustomersPage() {
                     </Toolbar>
                 </AppBar>
             </div>
-            <div>
-                <p></p>
+            <div className="spacing-top">
+
+            </div>
+
+            <Container maxWidth={"md"}>
+                <Typography>
+                    <div className={"position-for-search"}>
+                        <SearchIcon sx={{
+                            marginRight: 0.5,
+                            marginLeft: 0.5
+                        }}/>
+                        <div className="searchbar">
+                            <input id="search" onChange={getInput}/>
+                        </div>
+                    </div>
+                </Typography>
+            </Container>
+
+
+
+
+            <div className="spacing-under">
             </div>
             <div className="customers">
                 <Container maxWidth={"md"}>
@@ -84,7 +121,7 @@ export default function CustomersPage() {
                     </Typography>
                 </Container>
                 {
-                    customerList.map(customer => <CustomerCard customer={customer}/>)
+                    orderListFiltered.map(customer => <CustomerCard customer={customer}/>)
                 }
                 <div className={"add-customer"}>
                     <IconButton size={"large"} color={"inherit"} aria-label={"logo"} onClick={() => navigate("/add-customer")}>

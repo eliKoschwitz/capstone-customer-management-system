@@ -73,3 +73,38 @@
 .customers{
     background-color: rgb(240,240,240);
 }
+
+.position-for-search{
+    background-color: white;
+    color: grey;
+    display: flex;
+    width: 11.5rem;
+    height:2rem;
+    align-items: center;
+    border-radius: 3rem;
+}
+
+.spacing-top{
+    height: 2rem;
+}
+
+.spacing-under{
+    height: 1.5rem;
+}
+
+.searchbar input#search{
+    width: 10rem;
+    height: 2rem;
+    border:none;
+    font-size: 10pt;
+    float: left;
+    border-radius: 3rem;
+    transition: width .55s ease;
+}
+
+.searchbar input#search:focus, .container-2 input#search:active{
+    outline:none;
+    width: 300px;
+}
+
+
