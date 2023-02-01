@@ -2,6 +2,7 @@ package com.example.backend.config;
 
 import com.example.backend.model.AppUser;
 import com.example.backend.service.AppUserService;
+import lombok.Generated;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +15,9 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import java.util.Optional;
 
+
+@Generated
+@javax.annotation.Generated("*")
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
