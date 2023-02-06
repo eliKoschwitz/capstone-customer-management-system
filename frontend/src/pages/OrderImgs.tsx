@@ -33,7 +33,6 @@ export default function OrderImgs() {
     }
     const navigate = useNavigate();
 
-    // 1) Get - um die Order mit ID zu bekommen
     useEffect(() => {
         (async () => {
             try {
@@ -45,21 +44,15 @@ export default function OrderImgs() {
         })();
     }, [id]);
 
-    // hier wird die Order mit der neuen file ID an das Backend geschickt.
     const onUpload = (file: CustomFile) => {
         console.log("in der if um die fileId anzuhängen");
         order.fileIds = order.fileIds || [];
         const orderWithNewFileId = {...order, fileIds: order.fileIds.push(file.id)};
 
-        try {
-            (async () => {
-                const response = await axios.post("/api/order/", order);
-                setOrder(response.data);
-            })()
-        } catch (error) {
-            console.error(error);
-        }
-
+        (async () => {
+            const response = await axios.post("/api/order/", order);
+            setOrder(response.data);
+        })()
     };
 
     const onUpload2 = () => {
@@ -101,15 +94,15 @@ export default function OrderImgs() {
                 </IconButton>
             </div>
 
-            <Grid padding={12}  container  spacing={8}>
-                        {order.fileIds.map(fileId => (
-                            <Grid xs={3}  paddingBottom={5}>
-                                <Box marginRight={4} sx={boxSx}>
-                                <OrderImgCardTestZwei onUpload={onUpload} fileId={fileId} onUpload2={onUpload2}/>
-                                </Box>
-                            </Grid>
-                        ))}
-                <Grid xs={3}  paddingBottom={5}>
+            <Grid padding={12} container spacing={8}>
+                {order.fileIds.map(fileId => (
+                    <Grid xs={3} paddingBottom={5}>
+                        <Box marginRight={4} sx={boxSx}>
+                            <OrderImgCardTestZwei onUpload={onUpload} fileId={fileId} onUpload2={onUpload2}/>
+                        </Box>
+                    </Grid>
+                ))}
+                <Grid xs={3} paddingBottom={5}>
                     <Box marginRight={4}>
                         {(showNewCard) && <OrderImgCardTestZwei onUpload={onUpload} onUpload2={onUpload2}/>}
                     </Box>
