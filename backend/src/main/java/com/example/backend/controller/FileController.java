@@ -19,12 +19,13 @@ public class FileController {
     private final FileService fileService;
 
     @PostMapping
-    public FileMetadata uploadFile (@RequestParam("file") MultipartFile file, @RequestParam("headline") String headline) throws IOException {
+    public FileMetadata uploadFile(@RequestParam("file") MultipartFile file,
+                                   @RequestParam("headline") String headline) throws IOException {
         return fileService.saveFile(file, headline);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<InputStreamResource> getFile (@PathVariable String id) throws IOException {
+    public ResponseEntity<InputStreamResource> getFile(@PathVariable String id) throws IOException {
         GridFsResource gridFsResource = fileService.getResource(id);
 
         return ResponseEntity.ok()
@@ -33,7 +34,7 @@ public class FileController {
     }
 
     @GetMapping("/{id}/metadata")
-    public FileMetadata getFileMetadata (@PathVariable String id) {
+    public FileMetadata getFileMetadata(@PathVariable String id) {
         return fileService.getFileMetadata(id);
     }
 
