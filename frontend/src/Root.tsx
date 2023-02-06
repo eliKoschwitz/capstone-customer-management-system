@@ -11,6 +11,7 @@ import AddOrdersPage from "./pages/AddOrdersPage";
 import DetailedOrder from "./pages/DetailedOrder";
 import DetailedCustomer from "./pages/DetailedCustomer";
 import ErrorPage from "./pages/ErrorPage";
+import OrderImgs from "./pages/OrderImgs";
 
 export default function Root () {
     const [searchParams] = useSearchParams();
@@ -62,6 +63,12 @@ export default function Root () {
                         <DetailedCustomer/>
                     </Auth>
                 }/>
+                <Route path="/order-imgs/:id" element={
+                    <Auth>
+                        <OrderImgs/>
+                    </Auth>
+                }/>
+
                 <Route path={"*"} element={
                     <ErrorPage/>
                 }/>

@@ -1,5 +1,7 @@
 package com.example.backend.controller;
 
+import com.example.backend.model.FileMetadata;
+import com.example.backend.service.FileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.mongodb.gridfs.GridFsResource;
@@ -17,16 +19,12 @@ public class FileController {
     private final FileService fileService;
 
     @PostMapping
-    public FileMetadata uploadFile (
-            @RequestParam("file") MultipartFile file
-    ) throws IOException {
-        return fileService.saveFile(file);
+    public FileMetadata uploadFile (@RequestParam("file") MultipartFile file, @RequestParam("headline") String headline) throws IOException {
+        return fileService.saveFile(file, headline);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<InputStreamResource> getFile (
-            @PathVariable String id
-    ) throws IOException {
+    public ResponseEntity<InputStreamResource> getFile (@PathVariable String id) throws IOException {
         GridFsResource gridFsResource = fileService.getResource(id);
 
         return ResponseEntity.ok()
@@ -35,9 +33,8 @@ public class FileController {
     }
 
     @GetMapping("/{id}/metadata")
-    public FileMetadata getFileMetadata (
-            @PathVariable String id
-    ) {
+    public FileMetadata getFileMetadata (@PathVariable String id) {
         return fileService.getFileMetadata(id);
     }
+
 }

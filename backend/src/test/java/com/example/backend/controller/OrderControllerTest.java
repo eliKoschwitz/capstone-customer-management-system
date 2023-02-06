@@ -95,6 +95,7 @@ class OrderControllerTest {
                      "startTime":"10.01.2022",
                      "endTime":"20.01.2022",
                      "description":"The website should have two bla",
+                     "fileIds":["1","2"],
                      "createdBy":"63d1388c30c8f00af04e009c"
                  }
                 """;
@@ -107,6 +108,7 @@ class OrderControllerTest {
                      "startTime":"10.01.2022",
                      "endTime":"20.01.2022",
                      "description":"The website should have two bla",
+                     "fileIds":["1","2"],
                      "createdBy":"63d1388c30c8f00af04e009c"
                  }]
                 """;
@@ -160,6 +162,7 @@ class OrderControllerTest {
                      "startTime":"10.01.2022",
                      "endTime":"20.01.2022",
                      "description":"The website should have two bla",
+                     "fileIds":["1","2"],
                      "createdBy":"63d1388c30c8f00af04e009c"
                  }
                 """;
@@ -172,6 +175,7 @@ class OrderControllerTest {
                      "startTime":"10.01.2022",
                      "endTime":"20.01.2022",
                      "description":"The website should have two bla",
+                     "fileIds":["1","2"],
                      "createdBy":"63d1388c30c8f00af04e009c"
                 }
                 """;
@@ -227,6 +231,7 @@ class OrderControllerTest {
                      "startTime":"10.01.2022",
                      "endTime":"20.01.2022",
                      "description":"The website should have two bla",
+                     "fileIds":["1","2"],
                      "createdBy":"63d1388c30c8f00af04e009c"
                  }
                 """;
@@ -239,6 +244,7 @@ class OrderControllerTest {
                      "startTime":"10.01.2022",
                      "endTime":"20.01.2022",
                      "description":"The website should have two bla",
+                     "fileIds":["1","2"],
                      "createdBy":"63d1388c30c8f00af04e009c"
                 }
                 """;

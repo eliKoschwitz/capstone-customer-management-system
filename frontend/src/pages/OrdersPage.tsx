@@ -88,9 +88,6 @@ export default function OrdersPage() {
                 </Typography>
             </Container>
 
-
-
-
             <div className="spacing-under">
             </div>
 
@@ -123,7 +120,6 @@ export default function OrdersPage() {
                     </Typography>
                 </Container>
                 {
-                    //orderList.map(order => <OrderCard order={order}/>)
                     orderListFiltered.map(order => <OrderCard order={order}/>)
                 }
                 <div className={"add-customer"}>

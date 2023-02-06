@@ -1,5 +1,6 @@
 package com.example.backend.service;
 
+import com.example.backend.model.FileMetadata;
 import com.mongodb.BasicDBObjectBuilder;
 import com.mongodb.client.gridfs.model.GridFSFile;
 import lombok.RequiredArgsConstructor;
@@ -23,12 +24,11 @@ import java.util.Optional;
 public class FileService {
     private final GridFsTemplate gridFsTemplate;
 
-    public FileMetadata saveFile (MultipartFile multipartFile) throws IOException {
+    private final AppUserService appUserService;
+
+    public FileMetadata saveFile (MultipartFile multipartFile, String headline) throws IOException {
         if (multipartFile.isEmpty()) {
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST,
-                    "File is empty"
-            );
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "File is empty");
         }
 
         ObjectId objectId = gridFsTemplate.store(
@@ -36,7 +36,8 @@ public class FileService {
                 multipartFile.getOriginalFilename(),
                 multipartFile.getContentType(),
                 BasicDBObjectBuilder.start()
-                        .add("createdBy", "neuefische")
+                        .add("createdBy", appUserService.getAuthenticatedUser().getId())
+                        .add("headline", headline)
                         .get()
         );
 
@@ -60,6 +61,7 @@ public class FileService {
         return new FileMetadata(
                 id,
                 gridFSFile.getFilename(),
+                metadata.getString("headline"),
                 metadata.getString("_contentType"),
                 gridFSFile.getLength(),
                 metadata.getString("createdBy")

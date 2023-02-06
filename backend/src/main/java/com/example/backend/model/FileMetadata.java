@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class FileMetadata {
     private String id;
     private String name;
+    private String headline;
     private String contentType;
     private long size;
     private String createdBy;
