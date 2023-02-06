@@ -26,7 +26,7 @@ class OrderServiceTest {
         OrderService orderService = new OrderService(mockOrderRepository,mockAppUserService);
 
         Order order = new Order("1", "12345", "AutoWebsite", "01.02.2021",
-                "04.02.2023", "That is the description","1");
+                "04.02.2023", "That is the description",new ArrayList<>(List.of("1","2")),"1");
         List<Order> orderList = new ArrayList<>(List.of(order));
 
         Mockito.when(mockAppUserService.getAuthenticatedUser()).thenReturn(appUser);
@@ -70,7 +70,7 @@ class OrderServiceTest {
         AppUser appUser = new AppUser("1", "Elias", "user", "BASIC");
 
         Order order = new Order("1", "12345", "AutoWebsite", "01.02.2021",
-                "04.02.2023", "That is the description","1");
+                "04.02.2023", "That is the description",new ArrayList<>(List.of("1","2")),"1");
 
         OrderRepository mockOrderRepository = mock(OrderRepository.class);
         AppUserService mockAppUserService = mock(AppUserService.class);
@@ -109,7 +109,7 @@ class OrderServiceTest {
     void whenGetOrderById_returnTheOrderWithId(){
         // GIVEN
         Order expectedOrder = new Order("1234","Customer1","Website1","startTime",
-                "endTime","description","1");
+                "endTime","description",new ArrayList<>(List.of("1","2")),"1");
         OrderRepository mockOrderRepository = mock(OrderRepository.class);
         AppUserService mockAppUserService = mock(AppUserService.class);
         OrderService orderService = new OrderService(mockOrderRepository, mockAppUserService);
