@@ -20,7 +20,6 @@ public class OrderController {
         return orderService.findAllOrders();
     }
 
-    // ist auch die UpDate
     @PostMapping
     public Order saveOrder(@RequestBody Order order) {
         return orderService.create(order);
