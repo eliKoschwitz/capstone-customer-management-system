@@ -130,7 +130,7 @@ export default function OrdersPage() {
                 </div>
 
                 <ThemeConfig>
-                    <button></button>
+                    <></>
                 </ThemeConfig>
             </div>
         </div>

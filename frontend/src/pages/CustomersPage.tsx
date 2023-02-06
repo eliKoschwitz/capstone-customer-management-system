@@ -14,11 +14,13 @@ import DomainVerificationIcon from '@mui/icons-material/DomainVerification';
 import AddIcon from '@mui/icons-material/Add';
 import {ThemeConfig} from "../config/Theme";
 import SearchIcon from "@mui/icons-material/Search";
+import Box from "@mui/material/Box";
 
 export default function CustomersPage() {
 
     const [customerList, setCustomerList] = useState<Customer[]>([]);
     const [inputForFilter, setInputForFilter] = useState<string>("");
+
     let orderListFiltered: Customer[];
 
     useEffect(() => {
@@ -51,26 +53,30 @@ export default function CustomersPage() {
 
 
     return (
-        <div className={"all-customer-page"}>
-            <div>
-                <AppBar position="relative" >
-                    <Toolbar>
-                        <IconButton size={"large"} edge={"start"} color={"inherit"} aria-label={"logo"}>
-                            <DomainVerificationIcon/>
-                        </IconButton>
-                        <Typography variant={"h6"} sx={{flexGrow: 1}}>
-                            ORGANIZE
-                        </Typography>
-                        <Stack direction={"row"} spacing={2}>
-                            <Button color={"inherit"} onClick={() => navigate("/")}>Customer</Button>
-                            <Button color={"inherit"} onClick={() => navigate("/order")}>Order</Button>
-                            <Logout/>
-                        </Stack>
-                    </Toolbar>
-                </AppBar>
-            </div>
+        <Box className={"customer-page"}>
+            <AppBar position="relative">
+                <Toolbar>
+                    <IconButton size={"large"} edge={"start"} color={"inherit"} aria-label={"logo"}>
+                        <DomainVerificationIcon/>
+                    </IconButton>
+                    <Typography variant={"h6"} sx={{flexGrow: 1}}>
+                        ORGANIZE
+                    </Typography>
+                    <Stack direction={"row"} spacing={2}>
+                        <Button color={"inherit"} onClick={() => {
+                            navigate("/");
+                        }}> Customer
+                        </Button>
+                        <Button color={"inherit"} onClick={() => {
+                            navigate("/order");
+                        }}
+                        >Order
+                        </Button>
+                        <Logout/>
+                    </Stack>
+                </Toolbar>
+            </AppBar>
             <div className="spacing-top">
-
             </div>
 
             <Container maxWidth={"md"}>
@@ -87,11 +93,9 @@ export default function CustomersPage() {
                 </Typography>
             </Container>
 
-
-
-
             <div className="spacing-under">
             </div>
+
             <div className="customers">
                 <Container maxWidth={"md"}>
                     <Typography>
@@ -124,18 +128,18 @@ export default function CustomersPage() {
                     orderListFiltered.map(customer => <CustomerCard customer={customer}/>)
                 }
                 <div className={"add-customer"}>
-                    <IconButton size={"large"} color={"inherit"} aria-label={"logo"} onClick={() => navigate("/add-customer")}>
+                    <IconButton size={"large"} color={"inherit"} aria-label={"logo"}
+                                onClick={() => navigate("/add-customer")}
+                                sx={{boxShadow: 3}}
+                    >
                         <AddIcon/>
                     </IconButton>
                 </div>
 
-
-
                 <ThemeConfig>
-                    <button></button>
+                    <></>
                 </ThemeConfig>
             </div>
-        </div>
-
+        </Box>
     )
 }
