@@ -73,4 +73,57 @@ class FileControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json(fileMetadataJSON));
     }
+
+    @Test
+    void whenPostFile_withoutLogin_return401() throws Exception{
+        MockMultipartFile mockMultipartFile = new MockMultipartFile("file","filename.txt",
+                "multipart/form-data","some xml".getBytes());
+
+        String headline = "thisIsTheHeadline";
+
+        mvc.perform(MockMvcRequestBuilders.multipart("/api/files")
+                        .file(mockMultipartFile)
+                        .param("headline", headline)
+                        .with(httpBasic("Elias","user"))
+                        .header(HttpHeaders.ACCEPT,MediaType.APPLICATION_JSON)
+                        .header(HttpHeaders.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    void whenPostFile_withWrongDeclarations_return400() throws Exception {
+
+        String requestBody = """
+                {
+                    "id": "63d1388c30c8f00af04e009c",
+                    "username":"Elias",
+                    "password":"user"
+                }
+                """;
+
+        String expectedJSON = """
+                {
+                    "id": "63d1388c30c8f00af04e009c",
+                    "username": "Elias",
+                    "password": "",
+                    "role": "BASIC"
+                }
+                """;
+
+        // Create App User
+        mvc.perform(MockMvcRequestBuilders.post("/api/app-users")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isOk())
+                .andExpect(content().json(expectedJSON));
+
+        String headline = "thisIsTheHeadline";
+
+        mvc.perform(MockMvcRequestBuilders.multipart("/api/files")
+                        .param("headline", headline)
+                        .with(httpBasic("Elias","user"))
+                        .header(HttpHeaders.ACCEPT,MediaType.APPLICATION_JSON)
+                        .header(HttpHeaders.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA))
+                .andExpect(status().isBadRequest());
+    }
 }
