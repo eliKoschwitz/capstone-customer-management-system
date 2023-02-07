@@ -13,8 +13,8 @@ import EmailIcon from '@mui/icons-material/Email';
 import DomainVerificationIcon from '@mui/icons-material/DomainVerification';
 import AddIcon from '@mui/icons-material/Add';
 import {ThemeConfig} from "../config/Theme";
-import SearchIcon from "@mui/icons-material/Search";
 import Box from "@mui/material/Box";
+import SearchBar from "../components/SearchBar";
 
 export default function CustomersPage() {
 
@@ -75,25 +75,8 @@ export default function CustomersPage() {
                     </Stack>
                 </Toolbar>
             </AppBar>
-            <div className="spacing-top">
-            </div>
 
-            <Container maxWidth={"md"}>
-                <Typography>
-                    <div className={"position-for-search"}>
-                        <SearchIcon sx={{
-                            marginRight: 0.5,
-                            marginLeft: 0.5
-                        }}/>
-                        <div className="searchbar">
-                            <input id="search" onChange={getInput}/>
-                        </div>
-                    </div>
-                </Typography>
-            </Container>
-
-            <div className="spacing-under">
-            </div>
+            <SearchBar getInput={getInput}/>
 
             <div className="customers">
                 <Container maxWidth={"md"}>
