@@ -1,5 +1,7 @@
 package com.example.backend.controller;
 
+import com.example.backend.model.FileMetadata;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -9,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
@@ -23,6 +26,42 @@ class FileControllerTest {
     @Autowired
     private MockMvc mvc;
 
+    /*
+        String requestBody = """
+                    {
+                        "id": "63d1388c30c8f00af04e009c",
+                        "username":"Elias",
+                        "password":"user"
+                    }
+                    """;
+
+        String expectedJSON = """
+                    {
+                        "id": "63d1388c30c8f00af04e009c",
+                        "username": "Elias",
+                        "password": "",
+                        "role": "BASIC"
+                    }
+                    """;
+
+        private void saveNewTestUser() throws Exception {
+            mvc.perform(MockMvcRequestBuilders
+                            .post("/api/app-users/signup")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(requestBody))
+                            .andExpect(status().isOk())
+                            .andExpect(content().json(expectedJSON));
+        }
+
+        private void createCustomerForUser() throws Exception {
+            mvc.perform(MockMvcRequestBuilders
+                            .post("/api/customers")
+                            .with(httpBasic("user", "password"))
+                            .contentType(MediaType.APPLICATION_JSON).content(TestData.NEW_CUSTOMER))
+                    .andExpect(status().isOk())
+                    .andExpect(content().json(TestData.SINGLE_CUSTOMER));
+        }
+    */
     @Test
     void whenPostFile_returnMetadataFromFile() throws Exception {
         String requestBody = """
@@ -49,8 +88,8 @@ class FileControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json(expectedJSON));
 
-        MockMultipartFile mockMultipartFile = new MockMultipartFile("file","filename.txt",
-                "multipart/form-data","some xml".getBytes());
+        MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "filename.txt",
+                "multipart/form-data", "some xml".getBytes());
 
         String fileMetadataJSON = """
                 {
@@ -65,27 +104,27 @@ class FileControllerTest {
         String headline = "thisIsTheHeadline";
 
         mvc.perform(MockMvcRequestBuilders.multipart("/api/files")
-                .file(mockMultipartFile)
-                .param("headline", headline)
-                .with(httpBasic("Elias","user"))
-                .header(HttpHeaders.ACCEPT,MediaType.APPLICATION_JSON)
-                .header(HttpHeaders.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA))
+                        .file(mockMultipartFile)
+                        .param("headline", headline)
+                        .with(httpBasic("Elias", "user"))
+                        .header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON)
+                        .header(HttpHeaders.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA))
                 .andExpect(status().isOk())
                 .andExpect(content().json(fileMetadataJSON));
     }
 
     @Test
-    void whenPostFile_withoutLogin_return401() throws Exception{
-        MockMultipartFile mockMultipartFile = new MockMultipartFile("file","filename.txt",
-                "multipart/form-data","some xml".getBytes());
+    void whenPostFile_withoutLogin_return401() throws Exception {
+        MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "filename.txt",
+                "multipart/form-data", "some xml".getBytes());
 
         String headline = "thisIsTheHeadline";
 
         mvc.perform(MockMvcRequestBuilders.multipart("/api/files")
                         .file(mockMultipartFile)
                         .param("headline", headline)
-                        .with(httpBasic("Elias","user"))
-                        .header(HttpHeaders.ACCEPT,MediaType.APPLICATION_JSON)
+                        .with(httpBasic("Elias", "user"))
+                        .header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON)
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA))
                 .andExpect(status().isUnauthorized());
     }
@@ -121,9 +160,73 @@ class FileControllerTest {
 
         mvc.perform(MockMvcRequestBuilders.multipart("/api/files")
                         .param("headline", headline)
-                        .with(httpBasic("Elias","user"))
-                        .header(HttpHeaders.ACCEPT,MediaType.APPLICATION_JSON)
+                        .with(httpBasic("Elias", "user"))
+                        .header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON)
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA))
                 .andExpect(status().isBadRequest());
     }
+
+    @Test
+    void whenGetFile_returnMetadataFromFile() throws Exception {
+        String requestBody = """
+                {
+                    "id": "63d1388c30c8f00af04e009c",
+                    "username":"Elias",
+                    "password":"user"
+                }
+                """;
+
+        String expectedJSON = """
+                {
+                    "id": "63d1388c30c8f00af04e009c",
+                    "username": "Elias",
+                    "password": "",
+                    "role": "BASIC"
+                }
+                """;
+
+        // Create App User
+        mvc.perform(MockMvcRequestBuilders.post("/api/app-users")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isOk())
+                .andExpect(content().json(expectedJSON));
+
+        MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "filename.txt",
+                "multipart/form-data", "some xml".getBytes());
+
+        String fileMetadataJSON = """
+                {
+                    "name": "filename.txt",
+                    "headline": "thisIsTheHeadline",
+                    "contentType": "multipart/form-data",
+                    "size": 8,
+                    "createdBy": "63d1388c30c8f00af04e009c"
+                }
+                """;
+
+        // POST
+        String headline = "thisIsTheHeadline";
+        MvcResult result = mvc.perform(MockMvcRequestBuilders.multipart("/api/files")
+                        .file(mockMultipartFile)
+                        .param("headline", headline)
+                        .with(httpBasic("Elias", "user"))
+                        .header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON)
+                        .header(HttpHeaders.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA))
+                .andExpect(status().isOk())
+                .andExpect(content().json(fileMetadataJSON))
+                .andReturn();
+
+
+        String responseJson = result.getResponse().getContentAsString();
+
+        FileMetadata metadata = new ObjectMapper().readValue(responseJson, FileMetadata.class);
+
+        // GET
+        mvc.perform(MockMvcRequestBuilders.get("/api/files/" + metadata.getId() + "/metadata")
+                        .with(httpBasic("Elias", "user")))
+                .andExpect(status().isOk())
+                .andExpect(content().json(fileMetadataJSON));
+    }
+
 }
