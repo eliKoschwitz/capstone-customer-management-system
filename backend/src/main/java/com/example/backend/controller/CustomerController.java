@@ -35,11 +35,4 @@ public class CustomerController {
         return customerService.getCustomerById(id);
     }
 
-    /*
-    @PutMapping("/{id}")
-    public Customer editCustomer(@PathVariable String id, @RequestBody Customer customer) {
-        return customerService.create(customer);
-    }
-
-     */
 }
