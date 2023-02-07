@@ -3,7 +3,7 @@ import {Container, Typography} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
 export default function SearchBar({getInput}: {
-    getInput: Function
+    getInput: (event: React.ChangeEvent<HTMLInputElement>) => void
 }) {
 
     return (
