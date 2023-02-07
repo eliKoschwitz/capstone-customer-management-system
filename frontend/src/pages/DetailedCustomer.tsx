@@ -7,10 +7,8 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import {AppBar, IconButton, Stack, Toolbar} from "@mui/material";
-import DomainVerificationIcon from "@mui/icons-material/DomainVerification";
-import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import NavBarForDetailPages from "../components/NavBarForDetailPages";
 
 export default function DetailedCustomer() {
 
@@ -83,25 +81,8 @@ export default function DetailedCustomer() {
 
     return (
         <div className="add-customers">
-            <div>
-                <AppBar position="relative">
-                    <Toolbar>
-                        <IconButton size={"large"} edge={"start"} color={"inherit"} aria-label={"logo"}>
-                            <DomainVerificationIcon/>
-                        </IconButton>
-                        <Typography variant={"h6"} sx={{flexGrow: 1}}>
-                            ORGANIZE
-                        </Typography>
-                        <Stack direction={"row"} spacing={2}>
-                            <Button color={"inherit"} onClick={() => navigate("/")}>Back</Button>
-                            <IconButton size={"large"} edge={"start"} color={"inherit"} aria-label={"logo"}
-                                        onClick={deleteCustomer}>
-                                <DeleteIcon/>
-                            </IconButton>
-                        </Stack>
-                    </Toolbar>
-                </AppBar>
-            </div>
+            <NavBarForDetailPages deleteCustomerOrOrder={deleteCustomer}/>
+
             <div>
                 <Box display={"flex"} flexDirection={"column"} component="form" alignItems={"center"}
                      justifyContent={"center"} onSubmit={editCustomer} width={400} margin={"auto"} paddingTop={5}>

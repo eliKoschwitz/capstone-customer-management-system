@@ -12,14 +12,22 @@ import {ThemeConfig} from "../config/Theme";
 import Order from "../types/order";
 import OrderCard from "./OrderCard";
 import WorkIcon from '@mui/icons-material/Work';
-import SearchIcon from '@mui/icons-material/Search';
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
+import SearchBar from "../components/SearchBar";
 
 export default function OrdersPage() {
 
     const [orderList, setOrderList] = useState<Order[]>([]);
     const [inputForFilter, setInputForFilter] = useState<string>("");
     let orderListFiltered: Order[];
+
+
+    const getInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const value = event.target.value;
+        setInputForFilter(value);
+        console.log("OrdersPage change event", value);
+    }
+
 
     useEffect(() => {
         (async () => {
@@ -34,10 +42,7 @@ export default function OrdersPage() {
         })();
     }, []);
 
-    const getInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value;
-        setInputForFilter(value);
-    }
+
 
     if (inputForFilter !== "") {
         const query = inputForFilter;
@@ -70,26 +75,7 @@ export default function OrdersPage() {
                 </AppBar>
             </div>
 
-            <div className="spacing-top">
-
-            </div>
-
-            <Container maxWidth={"md"}>
-                <Typography>
-                    <div className={"position-for-search"}>
-                        <SearchIcon sx={{
-                            marginRight: 0.5,
-                            marginLeft: 0.5
-                        }}/>
-                        <div className="searchbar">
-                            <input id="search" onChange={getInput}/>
-                        </div>
-                    </div>
-                </Typography>
-            </Container>
-
-            <div className="spacing-under">
-            </div>
+            <SearchBar getInput={getInput}/>
 
             <div className="customers">
                 <Container maxWidth={"md"}>

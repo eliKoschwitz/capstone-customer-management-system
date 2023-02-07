@@ -6,12 +6,11 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import {AppBar, IconButton, MenuItem, OutlinedInput, Select, SelectChangeEvent, Stack, Toolbar} from "@mui/material";
-import DomainVerificationIcon from "@mui/icons-material/DomainVerification";
-import DeleteIcon from '@mui/icons-material/Delete';
+import {MenuItem, OutlinedInput, Select, SelectChangeEvent} from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import Order from "../types/order";
 import customer from "../types/customer";
+import NavBarForDetailPages from "../components/NavBarForDetailPages";
 
 export default function DetailedCustomer() {
 
@@ -82,7 +81,7 @@ export default function DetailedCustomer() {
     }
 
     // DELETE A ORDER
-    const deleteOrder = async () => {
+    const deleteOrder = (async () =>  {
         setErrors([]);
         try {
             await axios.delete("/api/order/" + objId.id);
@@ -92,7 +91,7 @@ export default function DetailedCustomer() {
                 [...errors, "Invalid user data"]
             );
         }
-    }
+    })
 
     // GET ALL CUSTOMERS
     useEffect(() => {
@@ -110,25 +109,9 @@ export default function DetailedCustomer() {
 
     return (
         <div>
-            <div>
-                <AppBar position="relative">
-                    <Toolbar>
-                        <IconButton size={"large"} edge={"start"} color={"inherit"} aria-label={"logo"}>
-                            <DomainVerificationIcon/>
-                        </IconButton>
-                        <Typography variant={"h6"} sx={{flexGrow: 1}}>
-                            ORGANIZE
-                        </Typography>
-                        <Stack direction={"row"} spacing={2}>
-                            <Button color={"inherit"} onClick={() => navigate("/order")}>Back</Button>
-                            <IconButton size={"large"} edge={"start"} color={"inherit"} aria-label={"logo"}
-                                        onClick={deleteOrder}>
-                                <DeleteIcon/>
-                            </IconButton>
-                        </Stack>
-                    </Toolbar>
-                </AppBar>
-            </div>
+
+            <NavBarForDetailPages deleteCustomerOrOrder={deleteOrder}/>
+
             <Box display="flex" flexDirection="column">
                 <Box display={"flex"} flexDirection={"row"} justifyContent={"space-evenly"} alignItems={"center"}>
                     <Box display={"flex"} flexDirection={"column"} component="form" margin={"auto"} paddingTop={5}
