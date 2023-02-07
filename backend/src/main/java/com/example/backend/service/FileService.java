@@ -22,7 +22,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class FileService {
-    final static String CREATED_BY = "createdBy";
+    static final String CREATED_BY = "createdBy";
 
     private final GridFsTemplate gridFsTemplate;
 
