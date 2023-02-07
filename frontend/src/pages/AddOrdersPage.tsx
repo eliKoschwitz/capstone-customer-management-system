@@ -7,10 +7,10 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
-import {AppBar, IconButton, MenuItem, OutlinedInput, Select, SelectChangeEvent, Stack, Toolbar} from "@mui/material";
-import DomainVerificationIcon from "@mui/icons-material/DomainVerification";
+import {MenuItem, OutlinedInput, Select, SelectChangeEvent} from "@mui/material";
 import Order from "../types/order";
 import customer from "../types/customer";
+import NavBar from "../components/NavBar";
 
 export default function AddOrdersPage() {
 
@@ -83,21 +83,7 @@ export default function AddOrdersPage() {
 
     return (
         <div className="add-customers">
-            <div>
-                <AppBar position="relative">
-                    <Toolbar>
-                        <IconButton size={"large"} edge={"start"} color={"inherit"} aria-label={"logo"}>
-                            <DomainVerificationIcon/>
-                        </IconButton>
-                        <Typography variant={"h6"} sx={{flexGrow: 1}}>
-                            ORGANIZE
-                        </Typography>
-                        <Stack direction={"row"} spacing={2}>
-                            <Button color={"inherit"} onClick={() => navigate("/order")}>Back</Button>
-                        </Stack>
-                    </Toolbar>
-                </AppBar>
-            </div>
+            <NavBar/>
             <Box display={"flex"}  flexDirection={"row"} justifyContent={"space-evenly"} alignItems={"center"}>
                 <Box display={"flex"} flexDirection={"column"} component="form" alignItems={"center"}
                      justifyContent={"center"} onSubmit={saveOrder} width={400} margin={"auto"} paddingTop={5}>

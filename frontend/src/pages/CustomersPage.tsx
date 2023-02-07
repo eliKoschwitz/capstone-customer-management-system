@@ -51,7 +51,6 @@ export default function CustomersPage() {
         orderListFiltered = customerList.map(customer => customer);
     }
 
-
     return (
         <Box className={"customer-page"}>
             <AppBar position="relative">
