@@ -9,8 +9,7 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
-import {AppBar, IconButton, Stack, Toolbar} from "@mui/material";
-import DomainVerificationIcon from "@mui/icons-material/DomainVerification";
+import NavBar from "../components/NavBar";
 
 export default function AddCustomersPage() {
     const [customer, setCustomer] = useState<Customer>({
@@ -61,21 +60,7 @@ export default function AddCustomersPage() {
 
     return (
         <div className="add-customers">
-            <div>
-                <AppBar position="relative">
-                    <Toolbar>
-                        <IconButton size={"large"} edge={"start"} color={"inherit"} aria-label={"logo"}>
-                            <DomainVerificationIcon/>
-                        </IconButton>
-                        <Typography variant={"h6"} sx={{flexGrow: 1}}>
-                            ORGANIZE
-                        </Typography>
-                        <Stack direction={"row"} spacing={2}>
-                            <Button color={"inherit"} onClick={() => navigate("/")}>Back</Button>
-                        </Stack>
-                    </Toolbar>
-                </AppBar>
-            </div>
+            <NavBar/>
             <div>
                 <Box display={"flex"} flexDirection={"column"} component="form" alignItems={"center"}
                      justifyContent={"center"} onSubmit={saveCustomer} width={400} margin={"auto"} paddingTop={5}>
