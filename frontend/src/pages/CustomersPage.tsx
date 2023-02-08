@@ -107,7 +107,7 @@ export default function CustomersPage() {
                     </Typography>
                 </Container>
                 {
-                    orderListFiltered.map(customer => <CustomerCard customer={customer}/>)
+                    orderListFiltered.map(customer => <CustomerCard key={customer.id} customer={customer}/>)
                 }
                 <div className={"add-customer"}>
                     <IconButton size={"large"} color={"inherit"} aria-label={"logo"}

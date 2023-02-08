@@ -48,7 +48,7 @@ export default function OrderImgs() {
         console.log("in der if um die fileId anzuhängen");
         order.fileIds = order.fileIds || [];
         const orderWithNewFileId = {...order, fileIds: order.fileIds.push(file.id)};
-
+        console.log(orderWithNewFileId);
         (async () => {
             const response = await axios.post("/api/order/", order);
             setOrder(response.data);
@@ -98,7 +98,7 @@ export default function OrderImgs() {
                 {order.fileIds.map(fileId => (
                     <Grid xs={3} paddingBottom={5}>
                         <Box marginRight={4} sx={boxSx}>
-                            <OrderImgCardTestZwei onUpload={onUpload} fileId={fileId} onUpload2={onUpload2}/>
+                            <OrderImgCardTestZwei key={fileId} onUpload={onUpload} fileId={fileId} onUpload2={onUpload2}/>
                         </Box>
                     </Grid>
                 ))}

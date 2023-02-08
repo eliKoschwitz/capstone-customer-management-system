@@ -7,10 +7,10 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
-import {MenuItem, OutlinedInput, Select, SelectChangeEvent} from "@mui/material";
 import Order from "../types/order";
 import customer from "../types/customer";
 import NavBar from "../components/NavBar";
+import DropDownMenu from "../components/DropDownMenu";
 
 export default function AddOrdersPage() {
 
@@ -26,14 +26,6 @@ export default function AddOrdersPage() {
 
     const [customerList, setCustomerList] = useState<customer[]>([]);
 
-    const MenuProps = {
-        PaperProps: {
-            style: {
-                width: 250,
-            },
-        },
-    };
-
     // GET ALL CUSTOMERS
     useEffect(() => {
         (async () => {
@@ -47,10 +39,6 @@ export default function AddOrdersPage() {
             }
         })();
     }, []);
-
-    const handleChangeSelect = (event: SelectChangeEvent) => {
-        setOrder({...order, customerId: event.target.value});
-    };
 
     const [errors, setErrors] = useState<string[]>([]);
 
@@ -84,7 +72,7 @@ export default function AddOrdersPage() {
     return (
         <div className="add-customers">
             <NavBar/>
-            <Box display={"flex"}  flexDirection={"row"} justifyContent={"space-evenly"} alignItems={"center"}>
+            <Box display={"flex"} flexDirection={"row"} justifyContent={"space-evenly"} alignItems={"center"}>
                 <Box display={"flex"} flexDirection={"column"} component="form" alignItems={"center"}
                      justifyContent={"center"} onSubmit={saveOrder} width={400} margin={"auto"} paddingTop={5}>
 
@@ -120,19 +108,10 @@ export default function AddOrdersPage() {
                         onChange={handleChange}
                     />
 
-                    <Select
-                        fullWidth
-                        value={order.customerId}
-                        label="CustomerName"
-                        onChange={handleChangeSelect}
-                        input={<OutlinedInput label="CustomerName" color={"info"}/>}
-                        MenuProps={MenuProps}
-                    >
-                        {customerList.map(customer => (
-                            <MenuItem value={customer.firstName +" "+ customer.lastName}>{customer.firstName + " " + customer.lastName}</MenuItem>
-                        ))}
-                    </Select>
-
+                    <DropDownMenu customerList={customerList}
+                                  callbackValue={(value) => {
+                                      setOrder({...order, customerId: value})
+                                  }}/>
 
                     <Button
                         type="submit"
@@ -143,7 +122,7 @@ export default function AddOrdersPage() {
                 </Box>
 
                 <Box display={"flex"} component="form" alignItems={"center"}
-                            justifyContent={"center"} onSubmit={saveOrder} width={400} margin={"auto"} paddingTop={5}>
+                     justifyContent={"center"} onSubmit={saveOrder} width={400} margin={"auto"} paddingTop={5}>
                     <TextField
                         fullWidth
                         margin="normal"

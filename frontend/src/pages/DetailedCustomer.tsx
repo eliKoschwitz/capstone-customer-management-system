@@ -56,7 +56,6 @@ export default function DetailedCustomer() {
         e.preventDefault();
         setErrors([]);
         try {
-            //await axios.put("/api/customer/"+ customer.id, customer);
             await axios.post("/api/customer/", customer);
             navigate("/");
         } catch (e) {

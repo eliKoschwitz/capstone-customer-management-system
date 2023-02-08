@@ -44,7 +44,6 @@ export default function AddCustomersPage() {
     const saveCustomer = useCallback(
         async (e: FormEvent<HTMLFormElement>) => {
             e.preventDefault();
-            setErrors([]);
             try {
                 await axios.post("/api/customer", customer);
                 navigate("/");

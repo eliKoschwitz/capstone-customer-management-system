@@ -18,6 +18,7 @@ import SearchBar from "../components/SearchBar";
 export default function OrdersPage() {
 
     const [orderList, setOrderList] = useState<Order[]>([]);
+    const [customerList, setCustomerList] = useState<Order[]>([]);
     const [inputForFilter, setInputForFilter] = useState<string>("");
     let orderListFiltered: Order[];
 
@@ -42,7 +43,18 @@ export default function OrdersPage() {
         })();
     }, []);
 
-
+    useEffect(() => {
+        (async () => {
+            try {
+                const response = await axios.get("/api/customer");
+                setCustomerList(response.data);
+            } catch (error) {
+                console.error(error);
+            } finally {
+                console.log("setAxiosWasPerformed(true);");
+            }
+        })();
+    }, []);
 
     if (inputForFilter !== "") {
         const query = inputForFilter;
@@ -55,6 +67,7 @@ export default function OrdersPage() {
     const navigate = useNavigate();
 
 
+    // @ts-ignore
     return (
         <div>
             <div>
@@ -106,14 +119,16 @@ export default function OrdersPage() {
                     </Typography>
                 </Container>
                 {
-                    orderListFiltered.map(order => <OrderCard order={order}/>)
+                    orderListFiltered.map(order => <OrderCard key={order.id} order={order}/>)
                 }
-                <div className={"add-customer"}>
-                    <IconButton size={"large"} color={"inherit"} aria-label={"logo"}
-                                onClick={() => navigate("/add-order")}>
-                        <AddIcon/>
-                    </IconButton>
-                </div>
+                {(customerList.length > 0) &&(
+                    <div className={"add-customer"}>
+                        <IconButton size={"large"} color={"inherit"} aria-label={"logo"}
+                                    onClick={() => navigate("/add-order")}>
+                            <AddIcon/>
+                        </IconButton>
+                    </div>)
+                }
 
                 <ThemeConfig>
                     <></>

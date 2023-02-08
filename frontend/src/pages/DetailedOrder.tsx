@@ -6,21 +6,13 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import {MenuItem, OutlinedInput, Select, SelectChangeEvent} from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import Order from "../types/order";
 import customer from "../types/customer";
 import NavBarForDetailPages from "../components/NavBarForDetailPages";
+import DropDownMenu from "../components/DropDownMenu";
 
 export default function DetailedCustomer() {
-
-    const MenuProps = {
-        PaperProps: {
-            style: {
-                width: 250,
-            },
-        },
-    };
 
     const [order, setOrder] = useState<Order>({
         id: "",
@@ -39,10 +31,6 @@ export default function DetailedCustomer() {
     const navigate = useNavigate();
 
     const objId = useParams<{ id: string }>();
-
-    const handleChangeSelect = (event: SelectChangeEvent) => {
-        setOrder({...order, customerId: event.target.value});
-    };
 
     // SAFE THE VALUES FROM THE FORMS
     const handleChange = useCallback(
@@ -70,7 +58,6 @@ export default function DetailedCustomer() {
         e.preventDefault();
         setErrors([]);
         try {
-            //await axios.put("/api/customer/"+ customer.id, customer);
             await axios.post("/api/order/", order);
             navigate("/order");
         } catch (e) {
@@ -81,7 +68,7 @@ export default function DetailedCustomer() {
     }
 
     // DELETE A ORDER
-    const deleteOrder = (async () =>  {
+    const deleteOrder = (async () => {
         setErrors([]);
         try {
             await axios.delete("/api/order/" + objId.id);
@@ -151,19 +138,10 @@ export default function DetailedCustomer() {
                             value={order.endTime}
                         />
 
-                        <Select
-                            fullWidth
-                            value={order.customerId}
-                            label="CustomerName"
-                            onChange={handleChangeSelect}
-                            input={<OutlinedInput label="CustomerName" color={"info"}/>}
-                            MenuProps={MenuProps}
-                        >
-                            {customerList.map(customer => (
-                                <MenuItem value={customer.firstName +" "+ customer.lastName}>{customer.firstName + " " + customer.lastName}</MenuItem>
-                            ))}
-                        </Select>
-
+                        <DropDownMenu customerList={customerList}
+                                      callbackValue={(value) => {
+                                          setOrder({...order, customerId: value})
+                                      }}/>
 
                         <Button
                             type="submit"
@@ -200,3 +178,21 @@ export default function DetailedCustomer() {
     );
 
 }
+
+/*
+       <Select
+                            fullWidth
+                            value={order.customerId}
+                            label="CustomerName"
+                            onChange={handleChangeSelect}
+                            input={<OutlinedInput label="CustomerName" color={"info"}/>}
+                            MenuProps={MenuProps}
+                        >
+                            {customerList.map(customer => (
+                                <MenuItem key={customer.id}
+                                          value={customer.firstName +" "+ customer.lastName}>
+                                    {customer.firstName + " " + customer.lastName}
+                                </MenuItem>
+                            ))}
+                        </Select>
+ */
