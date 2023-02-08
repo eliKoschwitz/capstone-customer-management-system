@@ -96,8 +96,8 @@ export default function OrderImgs() {
 
             <Grid padding={12} container spacing={8}>
                 {order.fileIds.map(fileId => (
-                    <Grid xs={3} paddingBottom={5}>
-                        <Box marginRight={4} sx={boxSx}>
+                    <Grid key={fileId} xs={3} paddingBottom={5}>
+                        <Box key={fileId} marginRight={4} sx={boxSx}>
                             <OrderImgCardTestZwei key={fileId} onUpload={onUpload} fileId={fileId} onUpload2={onUpload2}/>
                         </Box>
                     </Grid>
