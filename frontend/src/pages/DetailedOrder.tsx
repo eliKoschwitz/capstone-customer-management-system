@@ -178,21 +178,3 @@ export default function DetailedCustomer() {
     );
 
 }
-
-/*
-       <Select
-                            fullWidth
-                            value={order.customerId}
-                            label="CustomerName"
-                            onChange={handleChangeSelect}
-                            input={<OutlinedInput label="CustomerName" color={"info"}/>}
-                            MenuProps={MenuProps}
-                        >
-                            {customerList.map(customer => (
-                                <MenuItem key={customer.id}
-                                          value={customer.firstName +" "+ customer.lastName}>
-                                    {customer.firstName + " " + customer.lastName}
-                                </MenuItem>
-                            ))}
-                        </Select>
- */
