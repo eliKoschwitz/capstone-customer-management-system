@@ -11,6 +11,7 @@ import Order from "../types/order";
 import customer from "../types/customer";
 import NavBar from "../components/NavBar";
 import DropDownMenu from "../components/DropDownMenu";
+import {ThemeConfig} from "../config/Theme";
 
 export default function AddOrdersPage() {
 
@@ -83,31 +84,33 @@ export default function AddOrdersPage() {
                     <Typography component="h1" variant="h5">
                         Add Order
                     </Typography>
-
-                    <TextField
-                        fullWidth
-                        margin="normal"
-                        label="Website"
-                        name="website"
-                        onChange={handleChange}
-                    />
-
-                    <TextField
-                        fullWidth
-                        margin="normal"
-                        label="Start Point"
-                        name="startTime"
-                        onChange={handleChange}
-                    />
-
-                    <TextField
-                        fullWidth
-                        margin="normal"
-                        label="End Point"
-                        name="endTime"
-                        onChange={handleChange}
-                    />
-
+                    <ThemeConfig>
+                        <TextField
+                            fullWidth
+                            margin="normal"
+                            label="Website"
+                            name="website"
+                            onChange={handleChange}
+                        />
+                    </ThemeConfig>
+                    <ThemeConfig>
+                        <TextField
+                            fullWidth
+                            margin="normal"
+                            label="Start Point"
+                            name="startTime"
+                            onChange={handleChange}
+                        />
+                    </ThemeConfig>
+                    <ThemeConfig>
+                        <TextField
+                            fullWidth
+                            margin="normal"
+                            label="End Point"
+                            name="endTime"
+                            onChange={handleChange}
+                        />
+                    </ThemeConfig>
                     <DropDownMenu customerList={customerList}
                                   callbackValue={(value) => {
                                       setOrder({...order, customerId: value})
@@ -123,15 +126,17 @@ export default function AddOrdersPage() {
 
                 <Box display={"flex"} component="form" alignItems={"center"}
                      justifyContent={"center"} onSubmit={saveOrder} width={400} margin={"auto"} paddingTop={5}>
-                    <TextField
-                        fullWidth
-                        margin="normal"
-                        label="Description"
-                        name="description"
-                        onChange={handleChange}
-                        multiline={true}
-                        rows={12}
-                    />
+                    <ThemeConfig>
+                        <TextField
+                            fullWidth
+                            margin="normal"
+                            label="Description"
+                            name="description"
+                            onChange={handleChange}
+                            multiline={true}
+                            rows={12}
+                        />
+                    </ThemeConfig>
                     <Link to={"/order-imgs/" + order.id} style={{textDecoration: 'none'}}>
                         <Button
                             type="submit"

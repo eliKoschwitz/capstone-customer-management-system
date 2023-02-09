@@ -6,6 +6,7 @@ import {IconButton, Skeleton} from "@mui/material";
 import {PhotoCamera as PhotoCameraIcon} from "@mui/icons-material";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
+import {ThemeConfig} from "../config/Theme";
 
 export default function OrderImgCard({fileId, onUpload, onUpload2}: {
     fileId?: string,
@@ -22,6 +23,8 @@ export default function OrderImgCard({fileId, onUpload, onUpload2}: {
             position: "absolute",
             boxShadow: "rgb(38, 57, 77) 0px 20px 30px -10px",
             objectFit: "cover",
+            transition: "all .4s ease",
+            easeOut: ".4s easeOut",
             zIndex: 3
         },
     }
@@ -95,12 +98,14 @@ export default function OrderImgCard({fileId, onUpload, onUpload2}: {
                 <Box style={{position: "absolute"}}>
                     {(file) ? (
                             <Box width={250} height={320} display={"flex"} justifyContent={"center"} alignItems={"center"}
-                                 style={{position: "relative",border: "2px solid black", borderRadius: 5, overflow: "hidden"}}
+                                 style={{position: "relative",border: "2px solid gray", borderRadius: 5, overflow: "hidden",
+                                     boxShadow: "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) " +
+                                         "0px 30px 60px -30px, rgba(10, 37, 64, 0.35)" +
+                                         " 0px -2px 6px 0px inset"}}
                                  sx={boxSx}>
-
-
                                 <img src={"/api/files/" + file.id} alt="preview"
-                                     style={{objectFit: "cover", width: "100%", height: "100%", position: "absolute"}}/>
+                                     style={{objectFit: "cover", width: "100%", height: "100%", position: "absolute",
+                                         backgroundColor:"rgb(255, 255, 255)"}}/>
                             </Box>)
                         :
                         (<>
@@ -109,8 +114,12 @@ export default function OrderImgCard({fileId, onUpload, onUpload2}: {
                                  style={{position: "relative"}}>
 
                                 <Skeleton variant="rectangular" animation={"wave"} width={"100%"} height={"100%"}
-                                          style={{position: "absolute",border: "2px solid black",
-                                              borderRadius: 5, overflow: "hidden"}}/>
+                                          style={{position: "absolute",border: "1px solid black",
+                                              borderRadius: 5, overflow: "hidden", backgroundColor:"rgb(173, 216, 230)",
+                                              boxShadow: "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) " +
+                                                  "0px 30px 60px -30px, rgba(10, 37, 64, 0.35)" +
+                                                  " 0px -2px 6px 0px inset"
+                                          }}/>
 
                                 <IconButton size="large" aria-label="upload image" component="label"
                                             onClick={() => {fileInputRef.current?.click()}}
@@ -123,7 +132,7 @@ export default function OrderImgCard({fileId, onUpload, onUpload2}: {
                 </Box>
                 <Box display={"flex"} flexDirection={"column"} alignItems={"center"} width={215}
                      style={{marginTop:327, position: "relative", borderRadius: 5,
-                         overflow: "hidden", backgroundColor:"rgb(240, 240, 240)"}}>
+                         overflow: "hidden", backgroundColor:"rgb(255, 255, 255)"}}>
                 <TextField
                     required
                     label={(!file) && ("HeadLine")}
@@ -146,6 +155,9 @@ export default function OrderImgCard({fileId, onUpload, onUpload2}: {
                 }
                 </Box>
             </Box>
+        <ThemeConfig>
+            <></>
+        </ThemeConfig>
         </>
     );
 }

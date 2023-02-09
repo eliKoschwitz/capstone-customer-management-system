@@ -12,7 +12,6 @@ export enum themePalette {
 
 const theme = createTheme({
     palette: {
-        mode: "dark",
         background: {
             default: themePalette.BG,
         }
@@ -21,6 +20,13 @@ const theme = createTheme({
         fontFamily: themePalette.FONT_GLOBAL,
     },
     components: {
+        MuiTextField: {
+          defaultProps: {
+              style: {
+                  backgroundColor: "white"
+              }
+          }
+        },
         MuiButton: {
             defaultProps: {
                 style: {

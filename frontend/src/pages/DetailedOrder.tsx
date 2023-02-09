@@ -11,6 +11,7 @@ import Order from "../types/order";
 import customer from "../types/customer";
 import NavBarForDetailPages from "../components/NavBarForDetailPages";
 import DropDownMenu from "../components/DropDownMenu";
+import {ThemeConfig} from "../config/Theme";
 
 export default function DetailedCustomer() {
 
@@ -96,7 +97,6 @@ export default function DetailedCustomer() {
 
     return (
         <div>
-
             <NavBarForDetailPages deleteCustomerOrOrder={deleteOrder}/>
 
             <Box display="flex" flexDirection="column">
@@ -110,7 +110,7 @@ export default function DetailedCustomer() {
                         <Typography component="h1" variant="h5">
                             Edit Order
                         </Typography>
-
+                    <ThemeConfig>
                         <TextField
                             fullWidth
                             margin="normal"
@@ -119,7 +119,8 @@ export default function DetailedCustomer() {
                             onChange={handleChange}
                             value={order.website}
                         />
-
+                    </ThemeConfig>
+                    <ThemeConfig>
                         <TextField
                             fullWidth
                             margin="normal"
@@ -128,15 +129,17 @@ export default function DetailedCustomer() {
                             onChange={handleChange}
                             value={order.startTime}
                         />
-
-                        <TextField
-                            fullWidth
-                            margin="normal"
-                            label="End Point"
-                            name="endTime"
-                            onChange={handleChange}
-                            value={order.endTime}
-                        />
+                    </ThemeConfig>
+                        <ThemeConfig>
+                            <TextField
+                                fullWidth
+                                margin="normal"
+                                label="End Point"
+                                name="endTime"
+                                onChange={handleChange}
+                                value={order.endTime}
+                            />
+                        </ThemeConfig>
 
                         <DropDownMenu customerList={customerList}
                                       callbackValue={(value) => {
@@ -152,16 +155,18 @@ export default function DetailedCustomer() {
                     </Box>
 
                     <Box margin={"auto"} paddingTop={15}>
-                        <TextField
-                            fullWidth
-                            multiline={true}
-                            rows={12}
-                            margin="normal"
-                            label="Description"
-                            name="description"
-                            onChange={handleChange}
-                            value={order.description}
-                        />
+                        <ThemeConfig>
+                            <TextField
+                                fullWidth
+                                multiline={true}
+                                rows={12}
+                                margin="normal"
+                                label="Description"
+                                name="description"
+                                onChange={handleChange}
+                                value={order.description}
+                            />
+                        </ThemeConfig>
                         <Link to={"/order-imgs/" + order.id} style={{textDecoration: 'none'}}>
                             <Button
                                 type="submit"
@@ -171,7 +176,6 @@ export default function DetailedCustomer() {
                             >Show IMGs</Button>
                         </Link>
                     </Box>
-
                 </Box>
             </Box>
         </div>

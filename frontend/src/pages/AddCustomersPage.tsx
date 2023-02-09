@@ -10,6 +10,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import NavBar from "../components/NavBar";
+import {ThemeConfig} from "../config/Theme";
 
 export default function AddCustomersPage() {
     const [customer, setCustomer] = useState<Customer>({
@@ -71,39 +72,43 @@ export default function AddCustomersPage() {
                     <Typography component="h1" variant="h5">
                         Add Customer
                     </Typography>
+                    <ThemeConfig>
+                        <TextField
+                            fullWidth
+                            margin="normal"
+                            label="FirstName"
+                            name="firstName"
+                            onChange={handleChange}
+                        />
+                    </ThemeConfig>
+                    <ThemeConfig>
+                        <TextField
+                            fullWidth
+                            margin="normal"
+                            label="LastName"
+                            name="lastName"
+                            onChange={handleChange}
+                        />
+                    </ThemeConfig>
+                    <ThemeConfig>
+                        <TextField
+                            fullWidth
+                            margin="normal"
+                            label="TelefonNr"
+                            name="telefonNr"
+                            onChange={handleChange}
+                        />
+                    </ThemeConfig>
 
-                    <TextField
-                        fullWidth
-                        margin="normal"
-                        label="FirstName"
-                        name="firstName"
-                        onChange={handleChange}
-                    />
-
-                    <TextField
-                        fullWidth
-                        margin="normal"
-                        label="LastName"
-                        name="lastName"
-                        onChange={handleChange}
-                    />
-
-                    <TextField
-                        fullWidth
-                        margin="normal"
-                        label="TelefonNr"
-                        name="telefonNr"
-                        onChange={handleChange}
-                    />
-
-                    <TextField
-                        fullWidth
-                        margin="normal"
-                        label="E-Mail"
-                        name="email"
-                        onChange={handleChange}
-                    />
-
+                    <ThemeConfig>
+                        <TextField
+                            fullWidth
+                            margin="normal"
+                            label="E-Mail"
+                            name="email"
+                            onChange={handleChange}
+                        />
+                    </ThemeConfig>
 
                     <Button
                         type="submit"
