@@ -9,6 +9,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import EditIcon from '@mui/icons-material/Edit';
 import NavBarForDetailPages from "../components/NavBarForDetailPages";
+import {ThemeConfig} from "../config/Theme";
 
 export default function DetailedCustomer() {
 
@@ -93,7 +94,7 @@ export default function DetailedCustomer() {
                     <Typography component="h1" variant="h5">
                         Edit Customer
                     </Typography>
-
+                <ThemeConfig>
                     <TextField
                         fullWidth
                         margin="normal"
@@ -102,7 +103,9 @@ export default function DetailedCustomer() {
                         onChange={handleChange}
                         value={customer.firstName}
                     />
+                </ThemeConfig>
 
+                <ThemeConfig>
                     <TextField
                         fullWidth
                         margin="normal"
@@ -111,7 +114,9 @@ export default function DetailedCustomer() {
                         onChange={handleChange}
                         value={customer.lastName}
                     />
+                </ThemeConfig>
 
+                <ThemeConfig>
                     <TextField
                         fullWidth
                         margin="normal"
@@ -120,7 +125,9 @@ export default function DetailedCustomer() {
                         onChange={handleChange}
                         value={customer.telefonNr}
                     />
+                </ThemeConfig>
 
+                <ThemeConfig>
                     <TextField
                         fullWidth
                         margin="normal"
@@ -129,7 +136,7 @@ export default function DetailedCustomer() {
                         onChange={handleChange}
                         value={customer.email}
                     />
-
+                </ThemeConfig>
 
                     <Button
                         type="submit"
