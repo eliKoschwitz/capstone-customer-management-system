@@ -1,6 +1,6 @@
 import React, {FormEvent, useCallback, useEffect, useState} from "react";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
@@ -132,7 +132,17 @@ export default function AddOrdersPage() {
                         multiline={true}
                         rows={12}
                     />
+                    <Link to={"/order-imgs/" + order.id} style={{textDecoration: 'none'}}>
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{mt: 3, mb: 2}}
+                        >Show IMGs</Button>
+                    </Link>
                 </Box>
+
+
             </Box>
         </div>
 

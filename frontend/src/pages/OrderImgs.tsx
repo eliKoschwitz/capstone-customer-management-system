@@ -8,8 +8,8 @@ import {useNavigate, useParams} from "react-router-dom";
 import Box from "@mui/material/Box";
 import Order from "../types/order";
 import axios from "axios";
-import OrderImgCardTestZwei from "../tests/OrderImgCardTestZwei";
 import CustomFile from "../types/file";
+import OrderImgCard from "./OrderImgCard";
 
 export default function OrderImgs() {
 
@@ -60,16 +60,6 @@ export default function OrderImgs() {
         console.log("hallo");
     }
 
-    const boxSx = {
-        "&:hover": {
-            border: "1px solid black",
-            color: "gray",
-            backgroundColor: "gray",
-            width: "200%",
-            borderRadius: "50"
-        }
-    }
-
     return (
         <>
             <div>
@@ -94,17 +84,23 @@ export default function OrderImgs() {
                 </IconButton>
             </div>
 
-            <Grid padding={12} container spacing={8}>
+            <Grid container paddingTop={2} paddingLeft={1} paddingRight={1} display={"flex"}
+                  justifyContent={"center"} alignItems={"center"}>
+
                 {order.fileIds.map(fileId => (
-                    <Grid key={fileId} xs={3} paddingBottom={5}>
-                        <Box key={fileId} marginRight={4} sx={boxSx}>
-                            <OrderImgCardTestZwei key={fileId} onUpload={onUpload} fileId={fileId} onUpload2={onUpload2}/>
+                    <Grid item marginRight={1} xs={10} sm={4} lg={3} xl={2} key={fileId} display={"flex"}
+                          justifyContent={"center"}>
+
+                        <Box key={fileId} width={250} height={400} marginBottom={5}>
+                            <OrderImgCard key={fileId} onUpload={onUpload} fileId={fileId} onUpload2={onUpload2}/>
                         </Box>
+
                     </Grid>
                 ))}
-                <Grid xs={3} paddingBottom={5}>
-                    <Box marginRight={4}>
-                        {(showNewCard) && <OrderImgCardTestZwei onUpload={onUpload} onUpload2={onUpload2}/>}
+
+                <Grid item marginRight={1} xs={10} sm={4} lg={3} xl={2}>
+                    <Box>
+                        {(showNewCard) && <OrderImgCard onUpload={onUpload} onUpload2={onUpload2}/>}
                     </Box>
                 </Grid>
             </Grid>
