@@ -2,8 +2,8 @@ type Order = {
     id?: string;
     customerId: string;
     website: string;
-    startTime: string;
-    endTime: string;
+    startTime: Date;
+    endTime: Date;
     description: string;
     fileIds: string[];
     createdBy: string;

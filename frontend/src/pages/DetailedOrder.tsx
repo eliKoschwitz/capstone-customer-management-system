@@ -19,8 +19,8 @@ export default function DetailedCustomer() {
         id: "",
         customerId: "",
         website: "",
-        startTime: "",
-        endTime: "",
+        startTime: new Date(),
+        endTime: new Date(),
         description: "",
         fileIds: [],
         createdBy: ""

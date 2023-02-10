@@ -18,8 +18,8 @@ export default function AddOrdersPage() {
     const [order, setOrder] = useState<Order>({
         customerId: "",
         website: "",
-        startTime: "",
-        endTime: "",
+        startTime: new Date(),
+        endTime: new Date(),
         description: "",
         fileIds: [],
         createdBy: ""
@@ -96,19 +96,21 @@ export default function AddOrdersPage() {
                         </ThemeConfig>
                         <ThemeConfig>
                             <TextField
+                                InputLabelProps={{shrink: false}}
                                 fullWidth
                                 margin="normal"
-                                label="Start Point"
                                 name="startTime"
+                                type="date"
                                 onChange={handleChange}
                             />
                         </ThemeConfig>
                         <ThemeConfig>
                             <TextField
+                                InputLabelProps={{shrink: false}}
                                 fullWidth
                                 margin="normal"
-                                label="End Point"
                                 name="endTime"
+                                type="date"
                                 onChange={handleChange}
                             />
                         </ThemeConfig>

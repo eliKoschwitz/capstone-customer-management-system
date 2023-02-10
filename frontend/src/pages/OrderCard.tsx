@@ -6,6 +6,10 @@ import Order from "../types/order";
 
 export default function CustomerCard({order}: { order: Order }) {
 
+    const today = new Date().getTime();
+    const orderEndTime = new Date(order.endTime).getTime();
+    const difference = orderEndTime - today;
+    const TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
 
     return (
         <div>
@@ -28,7 +32,7 @@ export default function CustomerCard({order}: { order: Order }) {
                                     {order.customerId}
                                 </div>
                                 <div className={"card-email"}>
-                                    {order.startTime}
+                                    {TotalDays} Days left
                                 </div>
                             </div>
                         </CardContent>

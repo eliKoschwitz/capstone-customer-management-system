@@ -21,8 +21,8 @@ export default function OrderImgs() {
         id: "",
         customerId: "",
         website: "",
-        startTime: "",
-        endTime: "",
+        startTime: new Date(),
+        endTime: new Date(),
         description: "",
         fileIds: [""],
         createdBy: ""
