@@ -9,7 +9,7 @@ import Button from "@mui/material/Button";
 import EditIcon from '@mui/icons-material/Edit';
 import Order from "../types/order";
 import customer from "../types/customer";
-import NavBarForDetailPages from "../components/NavBarForDetailPages";
+import NavBarForDetailOrder from "../components/NavBarForDetailOrder";
 import DropDownMenu from "../components/DropDownMenu";
 import {ThemeConfig} from "../config/Theme";
 
@@ -97,7 +97,7 @@ export default function DetailedCustomer() {
 
     return (
         <div>
-            <NavBarForDetailPages deleteCustomerOrOrder={deleteOrder}/>
+            <NavBarForDetailOrder deleteCustomerOrOrder={deleteOrder}/>
 
             <Box display="flex" flexDirection="column">
                 <Box display={"flex"} flexDirection={"row"} justifyContent={"space-evenly"} alignItems={"center"}>

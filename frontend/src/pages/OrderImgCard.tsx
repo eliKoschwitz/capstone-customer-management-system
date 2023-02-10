@@ -124,7 +124,7 @@ export default function OrderImgCard({fileId, onUpload, onUpload2}: {
                                 <IconButton size="large" aria-label="upload image" component="label"
                                             onClick={() => {fileInputRef.current?.click()}}
                                             sx={{zIndex: 2, width: "32%", height: "25%", postion: "relativ"}}>
-                                    <PhotoCameraIcon sx={{width: "100%", height: "100%"}}/>
+                                    <PhotoCameraIcon sx={{width: "100%", height: "100%", color:"white"}}/>
                                 </IconButton>
                             </Box>
                         </>)

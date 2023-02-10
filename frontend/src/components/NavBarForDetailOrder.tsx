@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {useNavigate} from "react-router-dom";
 
-export default function NavBarForDetailPages({deleteCustomerOrOrder}: {
+export default function NavBarForDetailOrder({deleteCustomerOrOrder}: {
     deleteCustomerOrOrder:() => void
 }) {
 

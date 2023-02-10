@@ -79,8 +79,12 @@ export default function OrderImgs() {
             </div>
 
             <div className={"add-customer"}>
-                <IconButton size={"large"} color={"inherit"} onClick={plus}>
-                    <PhotoCameraIcon color={"inherit"}/>
+                <IconButton size={"large"}
+                            aria-label={"logo"}
+                            onClick={plus}
+                            sx={{boxShadow: 3}}
+                >
+                    <PhotoCameraIcon sx={{color:"white"}}/>
                 </IconButton>
             </div>
 

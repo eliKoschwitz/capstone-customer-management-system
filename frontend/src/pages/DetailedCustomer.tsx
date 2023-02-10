@@ -8,8 +8,8 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import EditIcon from '@mui/icons-material/Edit';
-import NavBarForDetailPages from "../components/NavBarForDetailPages";
 import {ThemeConfig} from "../config/Theme";
+import NavBarForDetailCustomer from "../components/NavBarForDetailCustomer";
 
 export default function DetailedCustomer() {
 
@@ -81,7 +81,7 @@ export default function DetailedCustomer() {
 
     return (
         <div className="add-customers">
-            <NavBarForDetailPages deleteCustomerOrOrder={deleteCustomer}/>
+            <NavBarForDetailCustomer deleteCustomerOrOrder={deleteCustomer}/>
 
             <div>
                 <Box display={"flex"} flexDirection={"column"} component="form" alignItems={"center"}
