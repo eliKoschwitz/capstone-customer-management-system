@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,8 +26,10 @@ class OrderServiceTest {
         AppUserService mockAppUserService = mock(AppUserService.class);
         OrderService orderService = new OrderService(mockOrderRepository,mockAppUserService);
 
-        Order order = new Order("1", "12345", "AutoWebsite", "01.02.2021",
-                "04.02.2023", "That is the description",new ArrayList<>(List.of("1","2")),"1");
+        var startDate = LocalDate.of(2022,2,1);
+
+        Order order = new Order("1", "12345", "AutoWebsite", startDate,
+                startDate.plusDays(1), "That is the description",new ArrayList<>(List.of("1","2")),"1");
         List<Order> orderList = new ArrayList<>(List.of(order));
 
         Mockito.when(mockAppUserService.getAuthenticatedUser()).thenReturn(appUser);
@@ -45,6 +48,7 @@ class OrderServiceTest {
     void whenGetAllOrder_orderListIsEmpty_thenReturnEmptyList() {
         // GIVEN
         AppUser appUser = new AppUser("1", "Elias", "user", "BASIC");
+
         List<Order> orderList = new ArrayList<>();
 
         OrderRepository mockOrderRepository = mock(OrderRepository.class);
@@ -68,9 +72,10 @@ class OrderServiceTest {
     void whenCreateOrder_thenReturnOrder() {
         // GIVEN
         AppUser appUser = new AppUser("1", "Elias", "user", "BASIC");
+        var startDate = LocalDate.of(2022,2,1);
 
-        Order order = new Order("1", "12345", "AutoWebsite", "01.02.2021",
-                "04.02.2023", "That is the description",new ArrayList<>(List.of("1","2")),"1");
+        Order order = new Order("1", "12345", "AutoWebsite", startDate,
+                startDate.plusDays(1), "That is the description",new ArrayList<>(List.of("1","2")),"1");
 
         OrderRepository mockOrderRepository = mock(OrderRepository.class);
         AppUserService mockAppUserService = mock(AppUserService.class);
@@ -108,8 +113,10 @@ class OrderServiceTest {
     @Test
     void whenGetOrderById_returnTheOrderWithId(){
         // GIVEN
-        Order expectedOrder = new Order("1234","Customer1","Website1","startTime",
-                "endTime","description",new ArrayList<>(List.of("1","2")),"1");
+        var startDate = LocalDate.of(2022,2,1);
+
+        Order expectedOrder = new Order("1234","Customer1","Website1",startDate,
+                startDate.plusDays(1),"description",new ArrayList<>(List.of("1","2")),"1");
         OrderRepository mockOrderRepository = mock(OrderRepository.class);
         AppUserService mockAppUserService = mock(AppUserService.class);
         OrderService orderService = new OrderService(mockOrderRepository, mockAppUserService);

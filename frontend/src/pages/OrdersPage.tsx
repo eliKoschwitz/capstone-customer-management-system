@@ -65,8 +65,6 @@ export default function OrdersPage() {
 
     const navigate = useNavigate();
 
-
-    // @ts-ignore
     return (
         <div>
             <NavBarOrdersAndCustomersPage/>
