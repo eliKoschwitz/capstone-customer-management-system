@@ -142,7 +142,7 @@ export default function DetailedCustomer() {
                         </Box>
 
                         <Button type="submit" fullWidth variant="contained" sx={{mt: 3, mb: 2}}>
-                            Edit Customer</Button>
+                            Edit Order</Button>
                     </Box>
                     <Box margin={"auto"} paddingTop={16}>
                         <ThemeConfig>
