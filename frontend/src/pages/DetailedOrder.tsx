@@ -146,20 +146,15 @@ export default function DetailedCustomer() {
                                           setOrder({...order, customerId: value})
                                       }}/>
 
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{mt: 3, mb: 2}}
-                        >Edit Customer</Button>
+                        <Button type="submit" fullWidth variant="contained" sx={{mt: 3, mb: 2}}>
+                            Edit Customer</Button>
                     </Box>
-
-                    <Box margin={"auto"} paddingTop={15}>
+                    <Box margin={"auto"} paddingTop={16}>
                         <ThemeConfig>
                             <TextField
                                 fullWidth
                                 multiline={true}
-                                rows={12}
+                                rows={11}
                                 margin="normal"
                                 label="Description"
                                 name="description"

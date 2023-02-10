@@ -91,11 +91,11 @@ export default function CustomersPage() {
                     orderListFiltered.map(customer => <CustomerCard key={customer.id} customer={customer}/>)
                 }
                 <div className={"add-customer"}>
-                    <IconButton size={"large"} color={"inherit"} aria-label={"logo"}
+                    <IconButton size={"large"} aria-label={"logo"}
                                 onClick={() => navigate("/add-customer")}
                                 sx={{boxShadow: 3}}
                     >
-                        <AddIcon/>
+                        <AddIcon sx={{color:"white"}}/>
                     </IconButton>
                 </div>
             </Stack>

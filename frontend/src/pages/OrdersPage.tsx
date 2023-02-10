@@ -105,9 +105,9 @@ export default function OrdersPage() {
                 }
                 {(customerList.length > 0) &&(
                     <div className={"add-customer"}>
-                        <IconButton size={"large"} color={"inherit"} aria-label={"logo"}
+                        <IconButton size={"large"} aria-label={"logo"}
                                     onClick={() => navigate("/add-order")}>
-                            <AddIcon/>
+                            <AddIcon sx={{color:"white"}}/>
                         </IconButton>
                     </div>)
                 }
