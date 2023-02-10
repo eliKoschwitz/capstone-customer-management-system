@@ -28,13 +28,13 @@ export default function DropDownMenu({customerList, callbackValue}: {
             <Box marginTop={2}>
             </Box>
             <Select
-
                 fullWidth
                 value={value}
                 label="CustomerName"
                 onChange={handleChangeSelect}
                 input={<OutlinedInput label="CustomerName" color={"info"}/>}
                 MenuProps={MenuProps}
+                sx={{backgroundColor:"white"}}
             >
                 {customerList.map(customer => (
                     <MenuItem key={customer.id}

@@ -6,7 +6,6 @@ import {Link} from "react-router-dom";
 
 export default function CustomerCard({customer}: { customer: Customer }) {
 
-
     return (
         <div>
             <Container maxWidth={"md"}>
