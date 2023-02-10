@@ -101,7 +101,7 @@ export default function DetailedCustomer() {
 
             <Box display="flex" flexDirection="column">
                 <Box display={"flex"} flexDirection={"row"} justifyContent={"space-evenly"} alignItems={"center"}>
-                    <Box display={"flex"} flexDirection={"column"} component="form" margin={"auto"} paddingTop={5}
+                    <Box display={"flex"} flexDirection={"column"} component="form" margin={"auto"} marginTop={5}
                          alignItems={"center"} justifyContent={"center"} width={400} onSubmit={editOrder}>
                         <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
                             <EditIcon/>
@@ -120,21 +120,13 @@ export default function DetailedCustomer() {
                                 value={order.website}
                             />
                         </ThemeConfig>
+
                         <ThemeConfig>
                             <TextField
                                 fullWidth
+                                InputLabelProps={{shrink: false}}
                                 margin="normal"
-                                label="Start Point"
-                                name="startTime"
-                                onChange={handleChange}
-                                value={order.startTime}
-                            />
-                        </ThemeConfig>
-                        <ThemeConfig>
-                            <TextField
-                                fullWidth
-                                margin="normal"
-                                label="End Point"
+                                type="date"
                                 name="endTime"
                                 onChange={handleChange}
                                 value={order.endTime}
@@ -145,6 +137,9 @@ export default function DetailedCustomer() {
                                       callbackValue={(value) => {
                                           setOrder({...order, customerId: value})
                                       }}/>
+                        <Box marginTop={10}>
+
+                        </Box>
 
                         <Button type="submit" fullWidth variant="contained" sx={{mt: 3, mb: 2}}>
                             Edit Customer</Button>
