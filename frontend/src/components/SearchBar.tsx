@@ -1,6 +1,7 @@
 import React from "react";
 import {Container, Typography} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import Box from "@mui/material/Box";
 
 export default function SearchBar({getInput}: {
     getInput: (event: React.ChangeEvent<HTMLInputElement>) => void
@@ -9,12 +10,11 @@ export default function SearchBar({getInput}: {
     return (
         <>
             <div className="spacing-top">
-
             </div>
 
-            <Container maxWidth={"md"}>
+            <Container maxWidth={"md"} >
                 <Typography>
-                    <div className={"position-for-search"}>
+                    <Box className={"position-for-search"} marginLeft={8}>
                         <SearchIcon sx={{
                             marginRight: 0.5,
                             marginLeft: 0.5
@@ -22,7 +22,7 @@ export default function SearchBar({getInput}: {
                         <div className="searchbar">
                             <input id="search" onChange={(event: React.ChangeEvent<HTMLInputElement>) => getInput(event)}/>
                         </div>
-                    </div>
+                    </Box>
                 </Typography>
             </Container>
 

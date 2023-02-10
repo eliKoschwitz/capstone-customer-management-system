@@ -1,20 +1,18 @@
-import Logout from "../components/Logout";
 import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import Customer from "../types/customer";
 import CustomerCard from "./CustomerCard";
-import {AppBar, Container, IconButton, Stack, Toolbar, Typography} from "@mui/material";
+import {IconButton, Stack, Typography} from "@mui/material";
 import CallIcon from "@mui/icons-material/Call";
-import Button from "@mui/material/Button";
 import "../styles/customer-page.css";
 import GroupIcon from '@mui/icons-material/Group';
 import EmailIcon from '@mui/icons-material/Email';
-import DomainVerificationIcon from '@mui/icons-material/DomainVerification';
 import AddIcon from '@mui/icons-material/Add';
 import {ThemeConfig} from "../config/Theme";
 import Box from "@mui/material/Box";
 import SearchBar from "../components/SearchBar";
+import NavBarOrdersAndCustomersPage from "../components/NavBarOrdersAndCustomersPage";
 
 export default function CustomersPage() {
 
@@ -53,59 +51,42 @@ export default function CustomersPage() {
 
     return (
         <Box className={"customer-page"}>
-            <AppBar position="relative">
-                <Toolbar>
-                    <IconButton size={"large"} edge={"start"} color={"inherit"} aria-label={"logo"}>
-                        <DomainVerificationIcon/>
-                    </IconButton>
-                    <Typography variant={"h6"} sx={{flexGrow: 1}}>
-                        ORGANIZE
-                    </Typography>
-                    <Stack direction={"row"} spacing={2}>
-                        <Button color={"inherit"} onClick={() => {
-                            navigate("/");
-                        }}> Customer
-                        </Button>
-                        <Button color={"inherit"} onClick={() => {
-                            navigate("/order");
-                        }}
-                        >Order
-                        </Button>
-                        <Logout/>
-                    </Stack>
-                </Toolbar>
-            </AppBar>
-
+            <NavBarOrdersAndCustomersPage/>
             <SearchBar getInput={getInput}/>
 
-            <div className="customers">
-                <Container maxWidth={"md"}>
+            <Stack className="customers" display={"flex"} flexDirection={"column"} justifyContent={"center"}
+                   alignItems={"center"}>
+                <Stack maxWidth={"md"} display={"flex"} justifyContent={"center"}>
                     <Typography>
-                        <div className={"header"}>
-                            <div className={"first-last-name"}>
-                                <GroupIcon sx={{
-                                    marginRight: 1,
-                                    fontSize: "medium"
-                                }}/>
-                                <p className={"customer-card-details"}>Customer Name</p>
-                            </div>
-                            <div className={"telefon-nr"}>
-                                <CallIcon sx={{
-                                    marginRight: 1,
-                                    fontSize: "medium"
-                                }}/>
-                                <p className={"customer-card-details"}>TelefonNr</p>
-                            </div>
-                            <div className={"email"}>
-                                <EmailIcon sx={{
-                                    marginRight: 1,
-                                    fontSize: "medium"
-                                }}/>
-                                <p className={"customer-card-details"}>E-Mail</p>
-                            </div>
-                        </div>
+                        <Box display={"flex"} flexDirection={"row"} alignItems={"center"} color={"gray"}
+                             fontSize={1} marginLeft={0.5}>
+
+                                <div className={"first-last-name"}>
+                                    <GroupIcon sx={{
+                                        marginRight: 1,
+                                        fontSize: "medium"
+                                    }}/>
+                                    <p className={"customer-card-details"}>Customer Name</p>
+                                </div>
+                                <div className={"telefon-nr"}>
+                                    <CallIcon sx={{
+                                        marginRight: 1,
+                                        fontSize: "medium"
+                                    }}/>
+                                    <p className={"customer-card-details"}>TelefonNr</p>
+                                </div>
+                                <div className={"email"}>
+                                    <EmailIcon sx={{
+                                        marginRight: 1,
+                                        fontSize: "medium"
+                                    }}/>
+                                    <p className={"customer-card-details"}>E-Mail</p>
+                                </div>
+
+                        </Box>
                     </Typography>
-                </Container>
+                </Stack>
+
                 {
                     orderListFiltered.map(customer => <CustomerCard key={customer.id} customer={customer}/>)
                 }
@@ -117,11 +98,11 @@ export default function CustomersPage() {
                         <AddIcon/>
                     </IconButton>
                 </div>
+            </Stack>
+            <ThemeConfig>
+                <></>
+            </ThemeConfig>
 
-                <ThemeConfig>
-                    <></>
-                </ThemeConfig>
-            </div>
         </Box>
     )
 }

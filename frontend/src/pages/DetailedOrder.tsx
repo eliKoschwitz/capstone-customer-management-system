@@ -110,26 +110,26 @@ export default function DetailedCustomer() {
                         <Typography component="h1" variant="h5">
                             Edit Order
                         </Typography>
-                    <ThemeConfig>
-                        <TextField
-                            fullWidth
-                            margin="normal"
-                            label="Website"
-                            name="website"
-                            onChange={handleChange}
-                            value={order.website}
-                        />
-                    </ThemeConfig>
-                    <ThemeConfig>
-                        <TextField
-                            fullWidth
-                            margin="normal"
-                            label="Start Point"
-                            name="startTime"
-                            onChange={handleChange}
-                            value={order.startTime}
-                        />
-                    </ThemeConfig>
+                        <ThemeConfig>
+                            <TextField
+                                fullWidth
+                                margin="normal"
+                                label="Website"
+                                name="website"
+                                onChange={handleChange}
+                                value={order.website}
+                            />
+                        </ThemeConfig>
+                        <ThemeConfig>
+                            <TextField
+                                fullWidth
+                                margin="normal"
+                                label="Start Point"
+                                name="startTime"
+                                onChange={handleChange}
+                                value={order.startTime}
+                            />
+                        </ThemeConfig>
                         <ThemeConfig>
                             <TextField
                                 fullWidth
@@ -180,5 +180,4 @@ export default function DetailedCustomer() {
             </Box>
         </div>
     );
-
 }

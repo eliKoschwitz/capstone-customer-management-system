@@ -119,6 +119,5 @@ export default function AddCustomersPage() {
                 </Box>
             </div>
         </div>
-
     );
 }

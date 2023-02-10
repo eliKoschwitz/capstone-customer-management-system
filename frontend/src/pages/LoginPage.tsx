@@ -107,7 +107,6 @@ export default function LoginPage() {
                 >Login</Button>
 
                 <Link to={"/signup" + location.search} >Don't have an account? Sign Up</Link>
-
             </Box>
         </div>
     );

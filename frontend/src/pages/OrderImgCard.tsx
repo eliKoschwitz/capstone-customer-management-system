@@ -23,7 +23,7 @@ export default function OrderImgCard({fileId, onUpload, onUpload2}: {
             position: "absolute",
             boxShadow: "rgb(38, 57, 77) 0px 20px 30px -10px",
             objectFit: "cover",
-            transition: "all .4s ease",
+            transition: "all .4s ease-out",
             easeOut: ".4s easeOut",
             zIndex: 3
         },

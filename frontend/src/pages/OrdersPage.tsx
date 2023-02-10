@@ -1,12 +1,9 @@
-import Logout from "../components/Logout";
 import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
-import {AppBar, Container, IconButton, Stack, Toolbar, Typography} from "@mui/material";
-import Button from "@mui/material/Button";
+import {IconButton, Stack, Typography} from "@mui/material";
 import "../styles/customer-page.css";
 import GroupIcon from '@mui/icons-material/Group';
-import DomainVerificationIcon from '@mui/icons-material/DomainVerification';
 import AddIcon from '@mui/icons-material/Add';
 import {ThemeConfig} from "../config/Theme";
 import Order from "../types/order";
@@ -14,6 +11,8 @@ import OrderCard from "./OrderCard";
 import WorkIcon from '@mui/icons-material/Work';
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 import SearchBar from "../components/SearchBar";
+import NavBarOrdersAndCustomersPage from "../components/NavBarOrdersAndCustomersPage";
+import Box from "@mui/material/Box";
 
 export default function OrdersPage() {
 
@@ -70,30 +69,15 @@ export default function OrdersPage() {
     // @ts-ignore
     return (
         <div>
-            <div>
-                <AppBar position="relative">
-                    <Toolbar>
-                        <IconButton size={"large"} edge={"start"} color={"inherit"} aria-label={"logo"}>
-                            <DomainVerificationIcon/>
-                        </IconButton>
-                        <Typography variant={"h6"} sx={{flexGrow: 1}}>
-                            ORGANIZE
-                        </Typography>
-                        <Stack direction={"row"} spacing={2}>
-                            <Button color={"inherit"} onClick={() => navigate("/")}>Customer</Button>
-                            <Button color={"inherit"} onClick={() => navigate("/order")}>Order</Button>
-                            <Logout/>
-                        </Stack>
-                    </Toolbar>
-                </AppBar>
-            </div>
-
+            <NavBarOrdersAndCustomersPage/>
             <SearchBar getInput={getInput}/>
-
-            <div className="customers">
-                <Container maxWidth={"md"}>
+            <Stack className="customers" display={"flex"} flexDirection={"column"} justifyContent={"center"}
+                   alignItems={"center"}>
+                <Stack maxWidth={"md"} display={"flex"} justifyContent={"center"}>
                     <Typography>
-                        <div className={"header"}>
+                        <Box display={"flex"} flexDirection={"row"} alignItems={"center"} color={"gray"}
+                        fontSize={1} marginLeft={0.5}>
+
                             <div className={"first-last-name"}>
                                 <WorkIcon sx={{
                                     marginRight: 1,
@@ -106,7 +90,7 @@ export default function OrdersPage() {
                                     marginRight: 1,
                                     fontSize: "medium"
                                 }}/>
-                                <p className={"customer-card-details"}>From Customer</p>
+                                <p className={"customer-card-details"}>Customer</p>
                             </div>
                             <div className={"email"}>
                                 <AccessTimeFilledIcon sx={{
@@ -115,9 +99,9 @@ export default function OrdersPage() {
                                 }}/>
                                 <p className={"customer-card-details"}>Open Time</p>
                             </div>
-                        </div>
+                        </Box>
                     </Typography>
-                </Container>
+                </Stack>
                 {
                     orderListFiltered.map(order => <OrderCard key={order.id} order={order}/>)
                 }
@@ -133,7 +117,7 @@ export default function OrdersPage() {
                 <ThemeConfig>
                     <></>
                 </ThemeConfig>
-            </div>
+            </Stack>
         </div>
 
     )
