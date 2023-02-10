@@ -99,16 +99,6 @@ export default function AddOrdersPage() {
                                 InputLabelProps={{shrink: false}}
                                 fullWidth
                                 margin="normal"
-                                name="startTime"
-                                type="date"
-                                onChange={handleChange}
-                            />
-                        </ThemeConfig>
-                        <ThemeConfig>
-                            <TextField
-                                InputLabelProps={{shrink: false}}
-                                fullWidth
-                                margin="normal"
                                 name="endTime"
                                 type="date"
                                 onChange={handleChange}
@@ -118,7 +108,9 @@ export default function AddOrdersPage() {
                                       callbackValue={(value) => {
                                           setOrder({...order, customerId: value})
                                       }}/>
+                        <Box marginTop={10}>
 
+                        </Box>
                         <Button
                             type="submit"
                             fullWidth
