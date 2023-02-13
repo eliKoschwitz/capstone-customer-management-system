@@ -66,8 +66,8 @@ export default function DetailedCustomer() {
         try {
             await axios.delete("/api/customer/" + objId.id);
             navigate("/");
-        } catch (e) {
-                console.log("Invalid user data", e);
+        } catch (error) {
+                console.log(error);
         }
     }
 
