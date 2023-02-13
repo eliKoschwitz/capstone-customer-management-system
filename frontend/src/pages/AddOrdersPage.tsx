@@ -41,8 +41,6 @@ export default function AddOrdersPage() {
         })();
     }, []);
 
-    const [errors, setErrors] = useState<string[]>([]);
-
     const navigate = useNavigate();
 
     const handleChange = useCallback(
@@ -56,15 +54,11 @@ export default function AddOrdersPage() {
     const saveOrder = useCallback(
         async (e: FormEvent<HTMLFormElement>) => {
             e.preventDefault();
-            setErrors([]);
             try {
                 await axios.post("/api/order", order);
                 navigate("/order");
-            } catch (e) {
-                setErrors((errors) => [
-                    ...errors,
-                    "Invalid user data"
-                ]);
+            } catch (error) {
+                console.error(error);
             }
         },
         [order, navigate]

@@ -31,9 +31,7 @@ export default function SignUpPage () {
     const signUp = useCallback(
         async (e: FormEvent<HTMLFormElement>) => {
             e.preventDefault();
-
             setErrors([]);
-
             try {
                 await axios.post("/api/app-users", credentials);
                 navigate("/login" + location.search);

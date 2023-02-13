@@ -21,8 +21,6 @@ export default function AddCustomersPage() {
         createdBy: ""
     });
 
-    const [errors, setErrors] = useState<string[]>([]);
-
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -49,10 +47,7 @@ export default function AddCustomersPage() {
                 await axios.post("/api/customer", customer);
                 navigate("/");
             } catch (e) {
-                setErrors((errors) => [
-                    ...errors,
-                    "Invalid user data"
-                ]);
+                console.error(error);
             }
         },
         [customer, navigate]

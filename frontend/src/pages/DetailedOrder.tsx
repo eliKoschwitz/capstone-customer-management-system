@@ -26,14 +26,12 @@ export default function DetailedCustomer() {
         createdBy: ""
     });
 
-    const [errors, setErrors] = useState<string[]>([]);
     const [customerList, setCustomerList] = useState<customer[]>([]);
 
     const navigate = useNavigate();
 
     const objId = useParams<{ id: string }>();
 
-    // SAFE THE VALUES FROM THE FORMS
     const handleChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
             const {name, value} = event.target;
@@ -42,7 +40,6 @@ export default function DetailedCustomer() {
         [order, setOrder]
     );
 
-    //GET A SINGLE CUSTOMER
     useEffect(() => {
         (async () => {
             try {
@@ -57,31 +54,23 @@ export default function DetailedCustomer() {
     // UPDATE A SINGLE CUSTOMER
     const editOrder = async (e: FormEvent<HTMLDivElement>) => {
         e.preventDefault();
-        setErrors([]);
         try {
             await axios.post("/api/order/", order);
             navigate("/order");
-        } catch (e) {
-            setErrors((errors) =>
-                [...errors, "Invalid user data"]
-            );
+        } catch (error) {
+            console.error(error);
         }
     }
 
-    // DELETE A ORDER
     const deleteOrder = (async () => {
-        setErrors([]);
         try {
             await axios.delete("/api/order/" + objId.id);
             navigate("/order");
-        } catch (e) {
-            setErrors((errors) =>
-                [...errors, "Invalid user data"]
-            );
+        } catch (error) {
+            console.error(error);
         }
     })
 
-    // GET ALL CUSTOMERS
     useEffect(() => {
         (async () => {
             try {

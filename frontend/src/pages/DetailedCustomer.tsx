@@ -22,8 +22,6 @@ export default function DetailedCustomer() {
         createdBy: ""
     });
 
-    const [errors, setErrors] = useState<string[]>([]);
-
     const navigate = useNavigate();
 
     const objId = useParams<{ id: string }>();
@@ -55,27 +53,21 @@ export default function DetailedCustomer() {
     // UPDATE A SINGLE CUSTOMER
     const editCustomer = async (e:FormEvent<HTMLDivElement>) => {
         e.preventDefault();
-        setErrors([]);
         try {
             await axios.post("/api/customer/", customer);
             navigate("/");
-        } catch (e) {
-            setErrors((errors) =>
-                [...errors, "Invalid user data"]
-            );
+        } catch (error) {
+            console.error(error);
         }
     }
 
     // DELETE A CUSTOMER
     const deleteCustomer = async () => {
-        setErrors([]);
         try {
             await axios.delete("/api/customer/" + objId.id);
             navigate("/");
         } catch (e) {
-            setErrors((errors) =>
-                [...errors, "Invalid user data"]
-            );
+                console.log("Invalid user data", e);
         }
     }
 
