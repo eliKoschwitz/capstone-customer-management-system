@@ -10,6 +10,7 @@ import Order from "../types/order";
 import axios from "axios";
 import CustomFile from "../types/file";
 import OrderImgCard from "./OrderImgCard";
+import {ThemeConfig} from "../config/Theme";
 
 export default function OrderImgs() {
 
@@ -84,30 +85,32 @@ export default function OrderImgs() {
                             onClick={plus}
                             sx={{boxShadow: 3}}
                 >
-                    <PhotoCameraIcon sx={{color:"white"}}/>
+                    <PhotoCameraIcon sx={{color: "white"}}/>
                 </IconButton>
             </div>
 
             <Grid container paddingTop={2} paddingLeft={1} paddingRight={1} display={"flex"}
-                  justifyContent={"center"} alignItems={"center"}>
+                  justifyContent={"center"} alignItems={"center"} >
 
                 {order.fileIds.map(fileId => (
                     <Grid item marginRight={1} xs={10} sm={4} lg={3} xl={2} key={fileId} display={"flex"}
-                          justifyContent={"center"}>
+                          justifyContent={"center"} >
 
-                        <Box key={fileId} width={250} height={400} marginBottom={5}>
+                        <Box key={fileId} width={250} height={400} marginBottom={3}>
                             <OrderImgCard key={fileId} onUpload={onUpload} fileId={fileId} onUpload2={onUpload2}/>
                         </Box>
-
                     </Grid>
                 ))}
-
-                <Grid item marginRight={1} xs={10} sm={4} lg={3} xl={2} marginTop={-5}>
-                    <Box>
-                        {(showNewCard) && <OrderImgCard onUpload={onUpload} onUpload2={onUpload2}/>}
-                    </Box>
-                </Grid>
+                    <Grid item marginRight={1} xs={10} sm={4} lg={3} xl={2}>
+                        <Box marginBottom={3}>
+                            {(showNewCard) && <OrderImgCard onUpload={onUpload} onUpload2={onUpload2}/>}
+                        </Box>
+                    </Grid>
             </Grid>
+
+            <ThemeConfig>
+                <></>
+            </ThemeConfig>
         </>
     );
 }
