@@ -17,7 +17,7 @@ export default function OrderImgCard({fileId, onUpload, onUpload2}: {
     const boxSx = {
         "&:hover": {
             border: "3px solid gray",
-            borderRadius:"5",
+            borderRadius: "5",
             width: 500,
             height: 500,
             position: "absolute",
@@ -29,10 +29,14 @@ export default function OrderImgCard({fileId, onUpload, onUpload2}: {
         },
     }
 
-    const [fileInput, setFileInput] = useState<File | null>(null);
-    const [file, setFile] = useState<CustomFile | null>();
+    const [fileInput, setFileInput] = useState<File>();
+
+    const [customFile, setCustomFile] = useState<CustomFile | null>(null);
+
+    const [imgPreview, setImgPreview] = React.useState<string | null>(null);
 
     const fileInputRef = React.useRef<HTMLInputElement>(null);
+
     const [headline, setHeadline] = React.useState<string>("");
 
     useEffect(() => {
@@ -41,7 +45,7 @@ export default function OrderImgCard({fileId, onUpload, onUpload2}: {
                 try {
                     console.log(fileId);
                     const response = await axios.get("/api/files/" + fileId + "/metadata");
-                    setFile(response.data);
+                    setCustomFile(response.data);
                 } catch (error) {
                     console.error(error);
                 }
@@ -57,16 +61,16 @@ export default function OrderImgCard({fileId, onUpload, onUpload2}: {
 
             const response = await axios.post("/api/files", formData);
             onUpload(response.data);
-            setFile(response.data)
+            setCustomFile(response.data)
             onUpload2();
 
-            if (!file) {
+            if (!customFile) {
                 return null;
             }
-            onUpload(file);
+            onUpload(customFile);
             alert(JSON.stringify(response.data, null, 2));
         } else {
-            console.log("kein file gefunden");
+            console.log("kein customFile gefunden");
         }
     };
 
@@ -78,6 +82,22 @@ export default function OrderImgCard({fileId, onUpload, onUpload2}: {
             console.log("handleChange-value ", value);
         }, [setHeadline]);
 
+    //preview
+    useEffect(() => {
+        // PREVIEW
+        if (fileInput) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setImgPreview(reader.result as string); // die url des bildes
+            };
+            reader.readAsDataURL(fileInput);
+            console.log("ein File wurde hochgeladen");
+        } else {
+            setImgPreview(null);
+            console.log("ein File wurde nicht hochgeladen");
+        }
+    }, [fileInput]);
+
     return (
         <>
             <input
@@ -85,79 +105,120 @@ export default function OrderImgCard({fileId, onUpload, onUpload2}: {
                 ref={fileInputRef}
                 style={{display: "none"}}
                 type={"file"}
-                onChange={(e) => {
-                    if (!e.target.files || e.target.files.length < 1) {
-                        setFileInput(null);
+
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    if (!event.target.files || event.target.files[0] === null) {
+                        setCustomFile(null)
                         return;
                     }
-                    setFileInput(e.target.files[0]);
+                    setFileInput(event.target.files[0]);
                 }}
-                accept={"image/png"}
+                accept={"image/*"}
             />
+
             <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
                 <Box style={{position: "absolute"}}>
-                    {(file) ? (
-                            <Box width={250} height={320} display={"flex"} justifyContent={"center"} alignItems={"center"}
-                                 style={{position: "relative",border: "2px solid gray", borderRadius: 5, overflow: "hidden",
+                    {(customFile) ?
+                        (
+                            <Box width={250} height={320} display={"flex"} justifyContent={"center"}
+                                 alignItems={"center"}
+                                 style={{
+                                     position: "relative",
+                                     border: "2px solid gray",
+                                     borderRadius: 5,
+                                     overflow: "hidden",
                                      boxShadow: "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) " +
                                          "0px 30px 60px -30px, rgba(10, 37, 64, 0.35)" +
-                                         " 0px -2px 6px 0px inset"}}
+                                         " 0px -2px 6px 0px inset"
+                                 }}
                                  sx={boxSx}>
-                                <img src={"/api/files/" + file.id} alt="preview"
-                                     style={{objectFit: "cover", width: "100%", height: "100%", position: "absolute",
-                                         backgroundColor:"rgb(255, 255, 255)"}}/>
+                                <img src={"/api/files/" + customFile.id} alt="preview"
+                                     style={{
+                                         objectFit: "cover", width: "100%", height: "100%", position: "absolute",
+                                         backgroundColor: "rgb(255, 255, 255)"
+                                     }}/>
                             </Box>)
+                        : (imgPreview) ?
+                            (
+                                <Box width={250} height={320} display={"flex"} justifyContent={"center"}
+                                     alignItems={"center"}
+                                     style={{
+                                         position: "relative",
+                                         border: "2px solid black",
+                                         borderRadius: 5,
+                                         overflow: "hidden",
+                                         boxShadow: "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) " +
+                                             "0px 30px 60px -30px, rgba(10, 37, 64, 0.35)" +
+                                             " 0px -2px 6px 0px inset"
+                                     }}
+                                     sx={boxSx}>
+                                    <img src={imgPreview} alt={"preview"}
+                                         style={{
+                                             objectFit: "cover", width: "100%", height: "100%", position: "absolute",
+                                             backgroundColor: "rgb(255, 255, 255)"
+                                         }}/>
+                                </Box>)
                         :
                         (<>
                             <Box width={250} height={320} display={"flex"} justifyContent={"center"}
                                  alignItems={"center"}
-                                 style={{position: "relative"}}>
+                                 style={{position: "relative"}} >
 
                                 <Skeleton variant="rectangular" animation={"wave"} width={"100%"} height={"100%"}
-                                          style={{position: "absolute",border: "1px solid black",
-                                              borderRadius: 5, overflow: "hidden", backgroundColor:"rgb(173, 216, 230)",
+                                          style={{
+                                              position: "absolute",
+                                              border: "1px solid black",
+                                              borderRadius: 5,
+                                              overflow: "hidden",
+                                              backgroundColor: "rgb(173, 216, 230)",
                                               boxShadow: "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) " +
                                                   "0px 30px 60px -30px, rgba(10, 37, 64, 0.35)" +
                                                   " 0px -2px 6px 0px inset"
                                           }}/>
 
                                 <IconButton size="large" aria-label="upload image" component="label"
-                                            onClick={() => {fileInputRef.current?.click()}}
+                                            onClick={() => {
+                                                fileInputRef.current?.click()
+                                            }}
                                             sx={{zIndex: 2, width: "32%", height: "25%", postion: "relativ"}}>
-                                    <PhotoCameraIcon sx={{width: "100%", height: "100%", color:"white"}}/>
+                                    <PhotoCameraIcon sx={{width: "100%", height: "100%", color: "white"}}/>
                                 </IconButton>
                             </Box>
                         </>)
                     }
                 </Box>
                 <Box display={"flex"} flexDirection={"column"} alignItems={"center"} width={215}
-                     style={{marginTop:327, position: "relative", borderRadius: 5,
-                         overflow: "hidden", backgroundColor:"rgb(255, 255, 255)"}}>
-                <TextField
-                    required
-                    label={(!file) && ("HeadLine")}
-                    onChange={handleChange}
-                    variant="standard"
-                    inputProps={{style: {textAlign: 'center'}}}
-                    margin={"none"}
-                    value={(file) && file.headline}
-                    sx={{
-                        width: 200,
-                        "& .css-v4u5dn-MuiInputBase-root-MuiInput-root": {marginTop: 0},
-                        "& .css-aqpgxn-MuiFormLabel-root-MuiInputLabel-root": {marginTop: -2},
-                        postion: "relativ"
-                    }}
-                />
-                {(file) ?
-                    <Button onClick={() => {fileInputRef.current?.click()}}>Edit File</Button>
-                    :
-                    <Button onClick={postInputFile}>Save File</Button>
-                }
+                     style={{
+                         marginTop: 327, position: "relative", borderRadius: 5,
+                         overflow: "hidden", backgroundColor: "rgb(255, 255, 255)"
+                     }}>
+                    <TextField
+                        required
+                        label={(!customFile) && ("HeadLine")}
+                        onChange={handleChange}
+                        variant="standard"
+                        inputProps={{style: {textAlign: 'center'}}}
+                        margin={"none"}
+                        value={(customFile) && customFile.headline}
+                        sx={{
+                            width: 200,
+                            "& .css-v4u5dn-MuiInputBase-root-MuiInput-root": {marginTop: 0},
+                            "& .css-aqpgxn-MuiFormLabel-root-MuiInputLabel-root": {marginTop: -2},
+                            postion: "relativ"
+                        }}
+                    />
+                    {(customFile) ?
+                        <Button onClick={() => {
+                            fileInputRef.current?.click()
+                        }}>Edit File</Button>
+                        :
+                        <Button onClick={postInputFile}>Save File</Button>
+                    }
                 </Box>
             </Box>
-        <ThemeConfig>
-            <></>
-        </ThemeConfig>
+            <ThemeConfig>
+                <></>
+            </ThemeConfig>
         </>
     );
 }
