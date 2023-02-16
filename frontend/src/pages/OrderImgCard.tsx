@@ -33,7 +33,7 @@ export default function OrderImgCard({fileId, onUpload, onUpload2}: {
 
     const [customFile, setCustomFile] = useState<CustomFile | null>(null);
 
-    const [imgPreview, setImgPreview] = React.useState<string | null>(null);
+    const [imgPreview, setImgPreview] = React.useState<string>("");
 
     const fileInputRef = React.useRef<HTMLInputElement>(null);
 
@@ -93,7 +93,7 @@ export default function OrderImgCard({fileId, onUpload, onUpload2}: {
             reader.readAsDataURL(fileInput);
             console.log("ein File wurde hochgeladen");
         } else {
-            setImgPreview(null);
+            setImgPreview("");
             console.log("ein File wurde nicht hochgeladen");
         }
     }, [fileInput]);
@@ -118,7 +118,7 @@ export default function OrderImgCard({fileId, onUpload, onUpload2}: {
 
             <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
                 <Box style={{position: "absolute"}}>
-                    {(customFile) ?
+                    {(customFile || imgPreview) ?
                         (
                             <Box width={250} height={320} display={"flex"} justifyContent={"center"}
                                  alignItems={"center"}
@@ -132,32 +132,12 @@ export default function OrderImgCard({fileId, onUpload, onUpload2}: {
                                          " 0px -2px 6px 0px inset"
                                  }}
                                  sx={boxSx}>
-                                <img src={"/api/files/" + customFile.id} alt="preview"
+                                <img src={customFile ? ( "/api/files/" + customFile.id) : (imgPreview)} alt="preview"
                                      style={{
                                          objectFit: "cover", width: "100%", height: "100%", position: "absolute",
                                          backgroundColor: "rgb(255, 255, 255)"
                                      }}/>
                             </Box>)
-                        : (imgPreview) ?
-                            (
-                                <Box width={250} height={320} display={"flex"} justifyContent={"center"}
-                                     alignItems={"center"}
-                                     style={{
-                                         position: "relative",
-                                         border: "2px solid black",
-                                         borderRadius: 5,
-                                         overflow: "hidden",
-                                         boxShadow: "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) " +
-                                             "0px 30px 60px -30px, rgba(10, 37, 64, 0.35)" +
-                                             " 0px -2px 6px 0px inset"
-                                     }}
-                                     sx={boxSx}>
-                                    <img src={imgPreview} alt={"preview"}
-                                         style={{
-                                             objectFit: "cover", width: "100%", height: "100%", position: "absolute",
-                                             backgroundColor: "rgb(255, 255, 255)"
-                                         }}/>
-                                </Box>)
                         :
                         (<>
                             <Box width={250} height={320} display={"flex"} justifyContent={"center"}
