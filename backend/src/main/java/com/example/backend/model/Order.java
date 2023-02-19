@@ -3,6 +3,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -11,9 +12,10 @@ import java.util.List;
 @NoArgsConstructor
 public class Order {
     private String id;
+    @NotEmpty
     private String customerId;
+    @NotEmpty
     private String website;
-    private LocalDate startTime;
     private LocalDate endTime;
     private String description;
     private List<String> fileIds;

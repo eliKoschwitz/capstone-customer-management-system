@@ -12,14 +12,14 @@ import Button from "@mui/material/Button";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import LoginIcon from '@mui/icons-material/Login';
+import {toast, ToastContainer} from "react-toastify";
+import "../styles/customer-page.css";
 
 export default function LoginPage() {
     const [credentials, setCredentials] = useState({
         username: "",
         password: ""
     });
-
-    const [errors, setErrors] = useState<string[]>([]);
 
     const handleChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,22 +41,17 @@ export default function LoginPage() {
     const login = useCallback(
         async (e: FormEvent<HTMLFormElement>) => {
             e.preventDefault();
-
-            setErrors([]);
-
             try {
                 await axios.post("/api/app-users/login", null, {
                     headers: {
                         "Authorization": "Basic " + window.btoa(`${credentials.username}:${credentials.password}`)
                     }
                 });
-
                 navigate(redirect);
             } catch (e) {
-                setErrors((errors) => [
-                    ...errors,
-                    "Invalid username or password"
-                ]);
+                toast.error("Invalid username or password", {
+                    className: "toast-message"
+                });
             }
         },
         [credentials, navigate, redirect]
@@ -64,13 +59,6 @@ export default function LoginPage() {
 
     return (
         <div className="LoginPage">
-
-            {errors.length > 0 && (
-                <div>
-                    {errors.map((error) => <p key={error}>{error}</p>)}
-                </div>
-            )}
-
             <Box display={"flex"} flexDirection={"column"} component="form" alignItems={"center"}
                  justifyContent={"center"} onSubmit={login} width={400} margin={"auto"} paddingTop={5}>
 
@@ -108,6 +96,7 @@ export default function LoginPage() {
 
                 <Link to={"/signup" + location.search} >Don't have an account? Sign Up</Link>
             </Box>
+            <ToastContainer closeButton={false} position={"bottom-left"} autoClose={2000}/>
         </div>
     );
 }

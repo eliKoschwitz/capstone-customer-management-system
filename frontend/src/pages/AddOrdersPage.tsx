@@ -1,5 +1,5 @@
 import React, {FormEvent, useCallback, useEffect, useState} from "react";
-import axios from "axios";
+import axios, {AxiosError} from "axios";
 import {useNavigate} from "react-router-dom";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
@@ -12,6 +12,7 @@ import customer from "../types/customer";
 import DropDownMenu from "../components/DropDownMenu";
 import {ThemeConfig} from "../config/Theme";
 import NavBarForAddOrder from "../components/NavBarForAddOrder";
+import {toast, ToastContainer} from "react-toastify";
 
 export default function AddOrdersPage() {
 
@@ -57,11 +58,15 @@ export default function AddOrdersPage() {
             try {
                 await axios.post("/api/order", order);
                 navigate("/order");
-            } catch (error) {
-                console.error(error);
+            } catch (e: any | AxiosError) {
+                console.log("Validation error", e.response.data)
+                toast.error(JSON.stringify(e.response.data, null, 2).replaceAll(":", " ")
+                    .replaceAll("{", "").replaceAll("}", "")
+                    .replaceAll(",", " ").replaceAll('"', " "), {
+                    className: "toast-message"
+                });
             }
-        },
-        [order, navigate]
+        }, [order, navigate]
     );
 
     return (
@@ -128,6 +133,7 @@ export default function AddOrdersPage() {
                     </Box>
                 </Box>
             </Box>
+            <ToastContainer closeButton={true} position={"bottom-left"} autoClose={2000}/>
         </div>
     );
 }

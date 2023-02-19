@@ -5,6 +5,7 @@ import com.example.backend.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,7 +22,7 @@ public class OrderController {
     }
 
     @PostMapping
-    public Order saveOrder(@RequestBody Order order) {
+    public Order saveOrder(@Valid @RequestBody Order order) {
         return orderService.create(order);
     }
 
