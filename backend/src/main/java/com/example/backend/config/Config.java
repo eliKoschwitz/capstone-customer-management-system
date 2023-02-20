@@ -25,7 +25,6 @@ public class Config implements WebMvcConfigurer {
                         Resource requestedResource = location.createRelative(
                                 resourcePath
                         );
-
                         return (
                                 requestedResource.exists() &&
                                         requestedResource.isReadable()

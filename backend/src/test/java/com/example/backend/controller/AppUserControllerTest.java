@@ -57,7 +57,6 @@ class AppUserControllerTest {
 
     @Test
     void whenCreateUser_andAppUserDoesExit_thenReturnConflict() throws Exception {
-
         String requestBody = """
                 {
                     "id": "63d1388c30c8f00af04e009c",
@@ -65,7 +64,6 @@ class AppUserControllerTest {
                     "password":"user"
                 }
                 """;
-
         String expectedJSON = """
                 {
                     "id": "63d1388c30c8f00af04e009c",
@@ -74,7 +72,6 @@ class AppUserControllerTest {
                     "role": "BASIC"
                 }
                 """;
-
         mvc.perform(MockMvcRequestBuilders.post("/api/app-users")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))

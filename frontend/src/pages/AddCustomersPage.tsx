@@ -11,7 +11,8 @@ import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import NavBar from "../components/NavBar";
 import {ThemeConfig} from "../config/Theme";
-import {toast, ToastContainer} from "react-toastify";
+import {ToastContainer} from "react-toastify";
+import ToastError from "../components/ToastError";
 
 export default function AddCustomersPage() {
     const [customer, setCustomer] = useState<Customer>({
@@ -48,12 +49,7 @@ export default function AddCustomersPage() {
                 await axios.post("/api/customer", customer);
                 navigate("/");
             } catch (e: any | AxiosError) {
-                console.log("Validation error",e.response.data)
-                toast.error(JSON.stringify(e.response.data, null, 2).replaceAll(":",  " ")
-                    .replaceAll("{"  ,"").replaceAll("}"  ,"")
-                    .replaceAll(","," ").replaceAll('"'," "), {
-                    className: "toast-message"
-                });
+                ToastError(e);
             }
         },
         [customer, navigate]

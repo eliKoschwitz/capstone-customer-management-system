@@ -12,7 +12,8 @@ import customer from "../types/customer";
 import DropDownMenu from "../components/DropDownMenu";
 import {ThemeConfig} from "../config/Theme";
 import NavBarForAddOrder from "../components/NavBarForAddOrder";
-import {toast, ToastContainer} from "react-toastify";
+import {ToastContainer} from "react-toastify";
+import ToastError from "../components/ToastError";
 
 export default function AddOrdersPage() {
 
@@ -59,12 +60,7 @@ export default function AddOrdersPage() {
                 await axios.post("/api/order", order);
                 navigate("/order");
             } catch (e: any | AxiosError) {
-                console.log("Validation error", e.response.data)
-                toast.error(JSON.stringify(e.response.data, null, 2).replaceAll(":", " ")
-                    .replaceAll("{", "").replaceAll("}", "")
-                    .replaceAll(",", " ").replaceAll('"', " "), {
-                    className: "toast-message"
-                });
+                ToastError(e);
             }
         }, [order, navigate]
     );

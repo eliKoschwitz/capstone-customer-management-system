@@ -8,8 +8,9 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import "react-toastify/dist/ReactToastify.css";
-import {toast, ToastContainer} from "react-toastify";
+import {ToastContainer} from "react-toastify";
 import "../styles/customer-page.css"
+import ToastError from "../components/ToastError";
 
 export default function SignUpPage () {
     const [credentials, setCredentials] = useState({
@@ -37,12 +38,7 @@ export default function SignUpPage () {
                 await axios.post("/api/app-users", credentials);
                 navigate("/login" + location.search);
             } catch (e: any | AxiosError) {
-                console.log("Validation error",e.response.data)
-                toast.error(JSON.stringify(e.response.data, null, 2).replaceAll(":",  " ")
-                    .replaceAll("{"  ,"").replaceAll("}"  ,"")
-                    .replaceAll(","," ").replaceAll('"'," "), {
-                    className: "toast-message"
-                });
+                ToastError(e);
             }
         },
         [credentials, navigate, location.search]
