@@ -1,6 +1,6 @@
 import React, {FormEvent, useCallback, useEffect, useState} from "react";
 import getMe from "../hooks/getMe";
-import axios from "axios";
+import axios, {AxiosError} from "axios";
 import {useNavigate} from "react-router-dom";
 import Customer from "../types/customer";
 import Box from "@mui/material/Box";
@@ -11,6 +11,8 @@ import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import NavBar from "../components/NavBar";
 import {ThemeConfig} from "../config/Theme";
+import {ToastContainer} from "react-toastify";
+import ToastError from "../components/ToastError";
 
 export default function AddCustomersPage() {
     const [customer, setCustomer] = useState<Customer>({
@@ -46,8 +48,8 @@ export default function AddCustomersPage() {
             try {
                 await axios.post("/api/customer", customer);
                 navigate("/");
-            } catch (error) {
-                console.error(error);
+            } catch (e: any | AxiosError) {
+                ToastError(e);
             }
         },
         [customer, navigate]
@@ -113,6 +115,7 @@ export default function AddCustomersPage() {
                     >Add Customer</Button>
                 </Box>
             </div>
+            <ToastContainer closeButton={false} position={"bottom-left"} autoClose={2000}/>
         </div>
     );
 }

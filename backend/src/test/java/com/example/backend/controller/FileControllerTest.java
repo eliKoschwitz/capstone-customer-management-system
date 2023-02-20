@@ -26,42 +26,6 @@ class FileControllerTest {
     @Autowired
     private MockMvc mvc;
 
-    /*
-        String requestBody = """
-                    {
-                        "id": "63d1388c30c8f00af04e009c",
-                        "username":"Elias",
-                        "password":"user"
-                    }
-                    """;
-
-        String expectedJSON = """
-                    {
-                        "id": "63d1388c30c8f00af04e009c",
-                        "username": "Elias",
-                        "password": "",
-                        "role": "BASIC"
-                    }
-                    """;
-
-        private void saveNewTestUser() throws Exception {
-            mvc.perform(MockMvcRequestBuilders
-                            .post("/api/app-users/signup")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content(requestBody))
-                            .andExpect(status().isOk())
-                            .andExpect(content().json(expectedJSON));
-        }
-
-        private void createCustomerForUser() throws Exception {
-            mvc.perform(MockMvcRequestBuilders
-                            .post("/api/customers")
-                            .with(httpBasic("user", "password"))
-                            .contentType(MediaType.APPLICATION_JSON).content(TestData.NEW_CUSTOMER))
-                    .andExpect(status().isOk())
-                    .andExpect(content().json(TestData.SINGLE_CUSTOMER));
-        }
-    */
     @Test
     void whenPostFile_returnMetadataFromFile() throws Exception {
         String requestBody = """

@@ -26,10 +26,10 @@ class OrderServiceTest {
         AppUserService mockAppUserService = mock(AppUserService.class);
         OrderService orderService = new OrderService(mockOrderRepository,mockAppUserService);
 
-        var startDate = LocalDate.of(2022,2,1);
+        var endDate = LocalDate.of(2022,2,1);
 
-        Order order = new Order("1", "12345", "AutoWebsite", startDate,
-                startDate.plusDays(1), "That is the description",new ArrayList<>(List.of("1","2")),"1");
+        Order order = new Order("1", "12345", "AutoWebsite",
+                endDate, "That is the description",new ArrayList<>(List.of("1","2")),"1");
         List<Order> orderList = new ArrayList<>(List.of(order));
 
         Mockito.when(mockAppUserService.getAuthenticatedUser()).thenReturn(appUser);
@@ -72,10 +72,10 @@ class OrderServiceTest {
     void whenCreateOrder_thenReturnOrder() {
         // GIVEN
         AppUser appUser = new AppUser("1", "Elias", "user", "BASIC");
-        var startDate = LocalDate.of(2022,2,1);
+        var endDate = LocalDate.of(2022,2,1);
 
-        Order order = new Order("1", "12345", "AutoWebsite", startDate,
-                startDate.plusDays(1), "That is the description",new ArrayList<>(List.of("1","2")),"1");
+        Order order = new Order("1", "12345", "AutoWebsite", endDate,
+                "That is the description",new ArrayList<>(List.of("1","2")),"1");
 
         OrderRepository mockOrderRepository = mock(OrderRepository.class);
         AppUserService mockAppUserService = mock(AppUserService.class);
@@ -113,10 +113,9 @@ class OrderServiceTest {
     @Test
     void whenGetOrderById_returnTheOrderWithId(){
         // GIVEN
-        var startDate = LocalDate.of(2022,2,1);
+        var endDate = LocalDate.of(2022,2,1);
 
-        Order expectedOrder = new Order("1234","Customer1","Website1",startDate,
-                startDate.plusDays(1),"description",new ArrayList<>(List.of("1","2")),"1");
+        Order expectedOrder = new Order("1234","Customer1","Website1",endDate, "description",new ArrayList<>(List.of("1","2")),"1");
         OrderRepository mockOrderRepository = mock(OrderRepository.class);
         AppUserService mockAppUserService = mock(AppUserService.class);
         OrderService orderService = new OrderService(mockOrderRepository, mockAppUserService);

@@ -1,5 +1,5 @@
 import React, {FormEvent, useCallback, useEffect, useState} from "react";
-import axios from "axios";
+import axios, {AxiosError} from "axios";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
@@ -12,6 +12,8 @@ import customer from "../types/customer";
 import NavBarForDetailOrder from "../components/NavBarForDetailOrder";
 import DropDownMenu from "../components/DropDownMenu";
 import {ThemeConfig} from "../config/Theme";
+import {ToastContainer} from "react-toastify";
+import ToastError from "../components/ToastError";
 
 export default function DetailedCustomer() {
 
@@ -52,15 +54,16 @@ export default function DetailedCustomer() {
     }, [objId.id]);
 
     // UPDATE A SINGLE CUSTOMER
-    const editOrder = async (e: FormEvent<HTMLDivElement>) => {
+    const editOrder = useCallback( async (e: FormEvent<HTMLDivElement>) => {
         e.preventDefault();
         try {
             await axios.post("/api/order/", order);
             navigate("/order");
-        } catch (error) {
-            console.error(error);
+        } catch (e: any | AxiosError) {
+            ToastError(e);
         }
-    }
+        },[navigate, order]
+    )
 
     const deleteOrder = (async () => {
         try {
@@ -157,6 +160,7 @@ export default function DetailedCustomer() {
                     </Box>
                 </Box>
             </Box>
+            <ToastContainer closeButton={true} position={"bottom-left"} autoClose={2000}/>
         </div>
     );
 }

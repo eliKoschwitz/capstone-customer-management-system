@@ -1,5 +1,5 @@
 import React, {FormEvent, useCallback, useEffect, useState} from "react";
-import axios from "axios";
+import axios, {AxiosError} from "axios";
 import {useNavigate, useParams} from "react-router-dom";
 import Customer from "../types/customer";
 import Box from "@mui/material/Box";
@@ -10,11 +10,12 @@ import Button from "@mui/material/Button";
 import EditIcon from '@mui/icons-material/Edit';
 import {ThemeConfig} from "../config/Theme";
 import NavBarForDetailCustomer from "../components/NavBarForDetailCustomer";
+import {toast, ToastContainer} from "react-toastify";
 
 export default function DetailedCustomer() {
 
     const [customer, setCustomer] = useState<Customer>({
-        id:"",
+        id: "",
         firstName: "",
         lastName: "",
         telefonNr: "",
@@ -35,7 +36,6 @@ export default function DetailedCustomer() {
         [customer, setCustomer]
     );
 
-    //GET A SINGLE CUSTOMER
     useEffect(() => {
         (async () => {
             try {
@@ -50,16 +50,23 @@ export default function DetailedCustomer() {
     console.log(objId);
     console.log(customer);
 
-    // UPDATE A SINGLE CUSTOMER
-    const editCustomer = async (e:FormEvent<HTMLDivElement>) => {
-        e.preventDefault();
-        try {
-            await axios.post("/api/customer/", customer);
-            navigate("/");
-        } catch (error) {
-            console.error(error);
-        }
-    }
+    const editCustomer = useCallback(
+        async (e: FormEvent<HTMLDivElement>) => {
+            e.preventDefault();
+            try {
+                await axios.post("/api/customer/", customer);
+                navigate("/");
+            } catch (e: any | AxiosError) {
+                console.log("Validation error", e.response.data)
+                toast.error(JSON.stringify(e.response.data, null, 2).replaceAll(":", " ")
+                    .replaceAll("{", "").replaceAll("}", "")
+                    .replaceAll(",", " ").replaceAll('"', " "), {
+                    className: "toast-message"
+                });
+            }
+        },
+        [customer, navigate]
+    );
 
     // DELETE A CUSTOMER
     const deleteCustomer = async () => {
@@ -67,7 +74,7 @@ export default function DetailedCustomer() {
             await axios.delete("/api/customer/" + objId.id);
             navigate("/");
         } catch (error) {
-                console.log(error);
+            console.log(error);
         }
     }
 
@@ -86,49 +93,49 @@ export default function DetailedCustomer() {
                     <Typography component="h1" variant="h5">
                         Edit Customer
                     </Typography>
-                <ThemeConfig>
-                    <TextField
-                        fullWidth
-                        margin="normal"
-                        label="FirstName"
-                        name="firstName"
-                        onChange={handleChange}
-                        value={customer.firstName}
-                    />
-                </ThemeConfig>
+                    <ThemeConfig>
+                        <TextField
+                            fullWidth
+                            margin="normal"
+                            label="FirstName"
+                            name="firstName"
+                            onChange={handleChange}
+                            value={customer.firstName}
+                        />
+                    </ThemeConfig>
 
-                <ThemeConfig>
-                    <TextField
-                        fullWidth
-                        margin="normal"
-                        label="LastName"
-                        name="lastName"
-                        onChange={handleChange}
-                        value={customer.lastName}
-                    />
-                </ThemeConfig>
+                    <ThemeConfig>
+                        <TextField
+                            fullWidth
+                            margin="normal"
+                            label="LastName"
+                            name="lastName"
+                            onChange={handleChange}
+                            value={customer.lastName}
+                        />
+                    </ThemeConfig>
 
-                <ThemeConfig>
-                    <TextField
-                        fullWidth
-                        margin="normal"
-                        label="TelefonNr"
-                        name="telefonNr"
-                        onChange={handleChange}
-                        value={customer.telefonNr}
-                    />
-                </ThemeConfig>
+                    <ThemeConfig>
+                        <TextField
+                            fullWidth
+                            margin="normal"
+                            label="TelefonNr"
+                            name="telefonNr"
+                            onChange={handleChange}
+                            value={customer.telefonNr}
+                        />
+                    </ThemeConfig>
 
-                <ThemeConfig>
-                    <TextField
-                        fullWidth
-                        margin="normal"
-                        label="E-Mail"
-                        name="email"
-                        onChange={handleChange}
-                        value={customer.email}
-                    />
-                </ThemeConfig>
+                    <ThemeConfig>
+                        <TextField
+                            fullWidth
+                            margin="normal"
+                            label="E-Mail"
+                            name="email"
+                            onChange={handleChange}
+                            value={customer.email}
+                        />
+                    </ThemeConfig>
 
                     <Button
                         type="submit"
@@ -138,6 +145,7 @@ export default function DetailedCustomer() {
                     >Edit Customer</Button>
                 </Box>
             </div>
+            <ToastContainer closeButton={false} position={"bottom-left"} autoClose={2000}/>
         </div>
     );
 }

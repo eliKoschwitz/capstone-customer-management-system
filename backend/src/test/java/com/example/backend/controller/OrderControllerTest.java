@@ -92,7 +92,6 @@ class OrderControllerTest {
                      "id": "1234",
                      "customerId":"customerId",
                      "website":"Bike Website",
-                     "startTime":"2022-12-09",
                      "endTime":"2022-12-09",
                      "description":"The website should have two bla",
                      "fileIds":["1","2"],
@@ -105,14 +104,12 @@ class OrderControllerTest {
                      "id": "1234",
                      "customerId":"customerId",
                      "website":"Bike Website",
-                     "startTime":"2022-12-09",
                      "endTime":"2022-12-09",
                      "description":"The website should have two bla",
                      "fileIds":["1","2"],
                      "createdBy":"63d1388c30c8f00af04e009c"
                  }]
                 """;
-//2022-12-09T18:19:26
 
         // ADD Order
         mvc.perform(MockMvcRequestBuilders.post("/api/order")
@@ -160,7 +157,6 @@ class OrderControllerTest {
                      "id": "1234",
                      "customerId":"customerId",
                      "website":"Bike Website",
-                     "startTime":"2022-12-09",
                      "endTime":"2022-12-09",
                      "description":"The website should have two bla",
                      "fileIds":["1","2"],
@@ -173,7 +169,6 @@ class OrderControllerTest {
                      "id": "1234",
                      "customerId":"customerId",
                      "website":"Bike Website",
-                     "startTime":"2022-12-09",
                      "endTime":"2022-12-09",
                      "description":"The website should have two bla",
                      "fileIds":["1","2"],
@@ -229,7 +224,6 @@ class OrderControllerTest {
                      "id": "1234",
                      "customerId":"customerId",
                      "website":"Bike Website",
-                     "startTime":"2022-12-09",
                      "endTime":"2022-12-09",
                      "description":"The website should have two bla",
                      "fileIds":["1","2"],
@@ -242,7 +236,6 @@ class OrderControllerTest {
                      "id": "1234",
                      "customerId":"customerId",
                      "website":"Bike Website",
-                     "startTime":"2022-12-09",
                      "endTime":"2022-12-09",
                      "description":"The website should have two bla",
                      "fileIds":["1","2"],
