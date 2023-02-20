@@ -38,6 +38,7 @@ export default function SignUpPage () {
                 await axios.post("/api/app-users", credentials);
                 navigate("/login" + location.search);
             } catch (e: any | AxiosError) {
+                console.log(AxiosError);
                 ToastError(e);
             }
         },
