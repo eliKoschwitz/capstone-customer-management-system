@@ -60,6 +60,7 @@ export default function DetailedCustomer() {
             await axios.post("/api/order/", order);
             navigate("/order");
         } catch (e: any | AxiosError) {
+            console.log(AxiosError);
             ToastError(e);
         }
         },[navigate, order]

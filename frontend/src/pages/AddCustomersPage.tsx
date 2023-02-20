@@ -49,6 +49,7 @@ export default function AddCustomersPage() {
                 await axios.post("/api/customer", customer);
                 navigate("/");
             } catch (e: any | AxiosError) {
+                console.log(AxiosError);
                 ToastError(e);
             }
         },
