@@ -10,7 +10,8 @@ import Button from "@mui/material/Button";
 import EditIcon from '@mui/icons-material/Edit';
 import {ThemeConfig} from "../config/Theme";
 import NavBarForDetailCustomer from "../components/NavBarForDetailCustomer";
-import {toast, ToastContainer} from "react-toastify";
+import {ToastContainer} from "react-toastify";
+import ToastError from "../components/ToastError";
 
 export default function DetailedCustomer() {
 
@@ -57,12 +58,8 @@ export default function DetailedCustomer() {
                 await axios.post("/api/customer/", customer);
                 navigate("/");
             } catch (e: any | AxiosError) {
-                console.log("Validation error", e.response.data)
-                toast.error(JSON.stringify(e.response.data, null, 2).replaceAll(":", " ")
-                    .replaceAll("{", "").replaceAll("}", "")
-                    .replaceAll(",", " ").replaceAll('"', " "), {
-                    className: "toast-message"
-                });
+                console.log(AxiosError);
+                ToastError(e);
             }
         },
         [customer, navigate]
