@@ -22,7 +22,7 @@ export default function OrderImgCard({fileId, onUpload, onUpload2}: {
             height: 500,
             position: "absolute",
             boxShadow: "rgb(38, 57, 77) 0px 20px 30px -10px",
-            objectFit: "cover",
+            objectFit: "contain",
             transition: "all .4s ease-out",
             easeOut: ".4s easeOut",
             zIndex: 3
@@ -117,7 +117,7 @@ export default function OrderImgCard({fileId, onUpload, onUpload2}: {
             />
 
             <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
-                <Box style={{position: "absolute"}}>
+                <Box style={{position: "absolute", objectFit: "contain"}}>
                     {(customFile || imgPreview) ?
                         (
                             <Box width={250} height={320} display={"flex"} justifyContent={"center"}
@@ -134,7 +134,7 @@ export default function OrderImgCard({fileId, onUpload, onUpload2}: {
                                  sx={boxSx}>
                                 <img src={customFile ? ( "/api/files/" + customFile.id) : (imgPreview)} alt="preview"
                                      style={{
-                                         objectFit: "cover", width: "100%", height: "100%", position: "absolute",
+                                         objectFit: "contain", width: "100%", height: "100%", position: "absolute",
                                          backgroundColor: "rgb(255, 255, 255)"
                                      }}/>
                             </Box>)

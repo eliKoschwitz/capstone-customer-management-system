@@ -27,7 +27,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
         return http
                 .csrf().disable()
-                .httpBasic().and()
+                .httpBasic().authenticationEntryPoint(new NoPopupBasicAuthenticationEntryPoint()).and()
                 .authorizeHttpRequests()
                 .antMatchers(
                         HttpMethod.POST,
